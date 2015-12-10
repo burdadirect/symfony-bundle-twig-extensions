@@ -24,6 +24,6 @@ services:
 
     hbm.twig_extensions.baseurl:
         class: HBM\TwigExtensionsBundle\Twig\BaseUrlExtension
-        arguments: [%base_url_images%, %base_url_videos%]
+        arguments: [%hbm_twig_extensions.base_url.config%]
         tags:
             - { name: twig.extension }

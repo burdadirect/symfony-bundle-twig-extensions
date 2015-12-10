@@ -15,10 +15,10 @@ class BaseUrlExtension extends \Twig_Extension
    */
   protected $base_url_videos;
 
-  public function __construct($base_url_images, $base_url_videos)
+  public function __construct($base_url_config)
   {
-    $this->base_url_images = $base_url_images;
-    $this->base_url_videos = $base_url_videos;
+    $this->base_url_images = $base_url_config['images'];
+    $this->base_url_videos = $base_url_config['videos'];
   }
 
   public function getFilters()
