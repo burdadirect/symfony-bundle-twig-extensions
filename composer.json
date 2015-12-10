@@ -17,6 +17,7 @@
     }
   },
   "require": {
+    "symfony/symfony": "2.5.*",
     "twig/twig": "~1.23.1"
   },
   "require-dev": {
