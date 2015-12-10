@@ -1,0 +1,29 @@
+parameters:
+
+services:
+    # TWIG
+    hbm.twig_extensions.filter:
+        class: HBM\TwigExtensionsBundle\Twig\FilterExtension
+        tags:
+            - { name: twig.extension }
+
+    hbm.twig_extensions.object:
+        class: HBM\TwigExtensionsBundle\Twig\ObjectExtension
+        tags:
+            - { name: twig.extension }
+
+    hbm.twig_extensions.string:
+        class: HBM\TwigExtensionsBundle\Twig\StringExtension
+        tags:
+            - { name: twig.extension }
+
+    hbm.twig_extensions.datetime:
+        class: HBM\TwigExtensionsBundle\Twig\DatetimeExtension
+        tags:
+            - { name: twig.extension }
+
+    hbm.twig_extensions.baseurl:
+        class: HBM\TwigExtensionsBundle\Twig\BaseUrlExtension
+        arguments: [%base_url_images%, %base_url_videos%]
+        tags:
+            - { name: twig.extension }

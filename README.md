@@ -78,3 +78,10 @@ class AppKernel extends Kernel
 {{ uuid() }} => asdfadsfasdfasdf
 {% if someVar is prefixed(['http://', 'https://']) %} => true|false
 ```
+
+#### BaseUrl
+
+```twig
+{{ imageUrl|baseurlImages }} => http://this.is.the.baseurl/path/to/image.jpg
+{{ videoUrl|baseurlVideos }} => http://this.is.the.baseurl/path/to/video.mp4
+```

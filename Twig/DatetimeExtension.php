@@ -2,8 +2,6 @@
 
 namespace HBM\TwigExtensionsBundle\Twig;
 
-use Symfony\Component\Config\Definition\Exception\Exception;
-
 class DatetimeExtension extends \Twig_Extension
 {
 
@@ -25,7 +23,7 @@ class DatetimeExtension extends \Twig_Extension
     if (!$datetime instanceof \DateTime) {
       try {
         $datetime = new \DateTime($datetime);
-      } catch(Exception $e) {
+      } catch(\Exception $e) {
         $datetime = new \DateTime('now');
       }
 
