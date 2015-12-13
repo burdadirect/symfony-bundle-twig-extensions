@@ -10,6 +10,7 @@ class FilterExtension extends \Twig_Extension
       new \Twig_SimpleFilter('token', array($this, 'tokenFilter')),
       new \Twig_SimpleFilter('decimals', array($this, 'decimalsFilter')),
       new \Twig_SimpleFilter('bytes', array($this, 'bytesFilter')),
+      new \Twig_SimpleFilter('link', array($this, 'link'), array('is_safe' => array('html'))),
     );
   }
 
@@ -63,6 +64,26 @@ class FilterExtension extends \Twig_Extension
       $string .= '0';
     }
     return $string;
+  }
+
+  public function link($string, $text = '%s', $title = 'Link: %s') {
+    $regex_url = "/(href=\"|>)?(\b(?:(?:https?|ftp|file|[A-Za-z]+):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#\/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[A-Z0-9+&@#\/%=~_|$]))(<\/a>)?/i";
+
+    return preg_replace_callback($regex_url, function($matches) use ($text, $title) {
+      if (count($matches) == 4) {
+        if (($matches[1] == '>') && ($matches[3] == '</a>')) {
+          return $matches[0];
+        }
+      }
+
+      if (count($matches) == 3) {
+        if ($matches[1] == 'href="') {
+          return $matches[0];
+        }
+      }
+
+      return '<a href="'.$matches[0].'" target="_blank" title="'.sprintf($title, $matches[0]).'">'.sprintf($text, $matches[0]).'</a>';
+    }, $string);
   }
 
 }
