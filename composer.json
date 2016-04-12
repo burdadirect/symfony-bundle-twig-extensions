@@ -17,8 +17,8 @@
     }
   },
   "require": {
-    "symfony/symfony": "^2.5.12",
-    "twig/twig": "^1.23.1"
+    "symfony/symfony": ">=2.5.12",
+    "twig/twig": ">=1.23.1"
   },
   "require-dev": {
     "php": ">=5.6",
