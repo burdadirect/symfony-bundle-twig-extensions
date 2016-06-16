@@ -28,6 +28,10 @@ class Configuration implements ConfigurationInterface
             ->scalarNode('videos')->defaultValue('')->end()
           ->end()
         ->end()
+        ->arrayNode('responsive_svg')->defaultValue(array())
+          ->prototype('array')
+          ->end()
+        ->end()
       ->end()
     ->end();
 

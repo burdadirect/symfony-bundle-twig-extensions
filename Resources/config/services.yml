@@ -24,6 +24,12 @@ services:
 
     hbm.twig_extensions.baseurl:
         class: HBM\TwigExtensionsBundle\Twig\BaseUrlExtension
-        arguments: ["%hbm_twig_extensions.base_url.config%"]
+        arguments: ["%hbm_twig_extensions.base_url.urls%"]
+        tags:
+            - { name: twig.extension }
+
+    hbm.twig_extension.responsive_svg:
+        class: HBM\TwigExtensionBundle\Twig\ResponsiveSvgExtension
+        arguments: ["@kernel", "%hbm_twig_extensions.responsive_svg.stacks%", "@logger"]
         tags:
             - { name: twig.extension }
