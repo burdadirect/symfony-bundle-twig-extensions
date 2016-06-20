@@ -18,20 +18,24 @@ class Configuration implements ConfigurationInterface
   public function getConfigTreeBuilder()
   {
     $treeBuilder = new TreeBuilder();
-    $rootNode = $treeBuilder->root('hbm_twig_extensions');
+    $rootNode = $treeBuilder->root('hbm');
 
     $rootNode
       ->children()
-        ->arrayNode('base_url')
+        ->arrayNode('twig_extensions')
           ->children()
-            ->scalarNode('images')->defaultValue('')->end()
-            ->scalarNode('videos')->defaultValue('')->end()
-          ->end()
-        ->end()
-        ->arrayNode('responsive_svg')->defaultValue(array())
-          ->prototype('array')
-            ->children()
-              ->scalarNode('path')->end()
+            ->arrayNode('base_url')
+              ->children()
+                ->scalarNode('images')->defaultValue('')->end()
+                ->scalarNode('videos')->defaultValue('')->end()
+              ->end()
+            ->end()
+            ->arrayNode('responsive_svg')->defaultValue(array())
+              ->prototype('array')
+                ->children()
+                  ->scalarNode('path')->end()
+                ->end()
+              ->end()
             ->end()
           ->end()
         ->end()
