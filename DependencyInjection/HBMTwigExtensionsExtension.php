@@ -21,10 +21,18 @@ class HBMTwigExtensionsExtension extends Extension {
     $configuration = new Configuration();
     $config = $this->processConfiguration($configuration, $configs);
 
-    $container->setParameter('hbm.twig_extensions.base_url.urls', $config['base_url']);
-    $container->setParameter('hbm.twig_extensions.responsive_svg.stacks', $config['responsive_svg']);
+    $configToUse = $config;
+
+    $container->setParameter('hbm.twig_extensions.base_url', $configToUse['base_url']);
+    $container->setParameter('hbm.twig_extensions.responsive_svg', $configToUse['responsive_svg']);
 
     $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
     $loader->load('services.yml');
   }
+
+  public function getAlias()
+  {
+    return 'hbm';
+  }
+
 }
