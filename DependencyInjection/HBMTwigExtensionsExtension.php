@@ -30,9 +30,4 @@ class HBMTwigExtensionsExtension extends Extension {
     $loader->load('services.yml');
   }
 
-  public function getAlias()
-  {
-    return 'hbm';
-  }
-
 }
