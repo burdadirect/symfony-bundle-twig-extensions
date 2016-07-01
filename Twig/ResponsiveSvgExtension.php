@@ -15,12 +15,12 @@ class ResponsiveSvgExtension extends \Twig_Extension
   /** @var Logger */
   private $logger;
 
-  private $aliases;
+  private $config;
 
-  public function __construct(Kernel $kernel, $aliases, Logger $logger)
+  public function __construct(Kernel $kernel, $config, Logger $logger)
   {
     $this->kernel = $kernel;
-    $this->aliases = $aliases;
+    $this->config = $config;
     $this->logger = $logger;
   }
 
@@ -42,16 +42,16 @@ class ResponsiveSvgExtension extends \Twig_Extension
   /****************************************************************************/
 
   private function resolvePath($file) {
-    if (isset($this->aliases[$file]['path'])) {
-      return $this->kernel->getRootDir().'/../web/'.$this->aliases[$file]['path'];
+    if (isset($this->config['aliases'][$file]['path'])) {
+      return $this->kernel->getRootDir().'/../web/'.$this->config['aliases'][$file]['path'];
     }
 
     return $file;
   }
 
   private function resolveUrl($file) {
-    if (isset($this->aliases[$file]['path'])) {
-      return '/'.$this->aliases[$file]['path'];
+    if (isset($this->config['aliases'][$file]['path'])) {
+      return '/'.$this->config['aliases'][$file]['path'];
     }
 
     return $file;
@@ -89,6 +89,9 @@ class ResponsiveSvgExtension extends \Twig_Extension
     $urlResolved = $this->resolveUrl($file);
 
     $href = $urlResolved;
+    if ($this->config['inline']) {
+      $href = '';
+    }
     if (strlen($identifier) > 0) {
       $href .= '#' . $identifier;
     }
