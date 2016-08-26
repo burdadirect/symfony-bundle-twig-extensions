@@ -39,7 +39,7 @@ class StringExtension extends \Twig_Extension
 
   /**
    * @param $var
-   * @param $instance
+   * @param $prefixes
    * @return bool
    */
   public function isPrefixed($var, $prefixes) {

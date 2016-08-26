@@ -8,6 +8,7 @@ class FilterExtension extends \Twig_Extension
   public function getFilters() {
     return array(
       new \Twig_SimpleFilter('token', array($this, 'tokenFilter')),
+      new \Twig_SimpleFilter('without', array($this, 'withoutFilter')),
       new \Twig_SimpleFilter('decimals', array($this, 'decimalsFilter')),
       new \Twig_SimpleFilter('bytes', array($this, 'bytesFilter')),
       new \Twig_SimpleFilter('link', array($this, 'link'), array('is_safe' => array('html'))),
@@ -26,6 +27,16 @@ class FilterExtension extends \Twig_Extension
     $tokens = explode($sep, $string);
 
     return array_map('trim', $tokens);
+  }
+
+  public function withoutFilter($var, $without = ' ') {
+    if (is_string($var)) {
+      $var = str_replace($without, '', $var);
+    } elseif (is_array($var)) {
+      $var = array_diff($var, [$without]);
+    }
+
+    return $var;
   }
 
   public function bytesFilter($bytes, $sep = ' ', $decimals = 2, $dec_point = ',', $thousands_sep = '.') {
