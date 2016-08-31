@@ -10,6 +10,7 @@ class FilterExtension extends \Twig_Extension
       new \Twig_SimpleFilter('token', array($this, 'tokenFilter')),
       new \Twig_SimpleFilter('without', array($this, 'withoutFilter')),
       new \Twig_SimpleFilter('appendToKey', array($this, 'appendToKey')),
+      new \Twig_SimpleFilter('cssClasses', array($this, 'cssClasses')),
       new \Twig_SimpleFilter('decimals', array($this, 'decimalsFilter')),
       new \Twig_SimpleFilter('bytes', array($this, 'bytesFilter')),
       new \Twig_SimpleFilter('link', array($this, 'link'), array('is_safe' => array('html'))),
@@ -56,6 +57,10 @@ class FilterExtension extends \Twig_Extension
     }
 
     return $var;
+  }
+
+  public function cssClasses($var) {
+    return trim(preg_replace('!\s+!', ' ', $var));
   }
 
   public function bytesFilter($bytes, $sep = ' ', $decimals = 2, $dec_point = ',', $thousands_sep = '.') {
