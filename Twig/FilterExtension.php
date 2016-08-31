@@ -9,6 +9,7 @@ class FilterExtension extends \Twig_Extension
     return array(
       new \Twig_SimpleFilter('token', array($this, 'tokenFilter')),
       new \Twig_SimpleFilter('without', array($this, 'withoutFilter')),
+      new \Twig_SimpleFilter('appendToKey', array($this, 'appendToKey')),
       new \Twig_SimpleFilter('decimals', array($this, 'decimalsFilter')),
       new \Twig_SimpleFilter('bytes', array($this, 'bytesFilter')),
       new \Twig_SimpleFilter('link', array($this, 'link'), array('is_safe' => array('html'))),
@@ -34,6 +35,24 @@ class FilterExtension extends \Twig_Extension
       $var = str_replace($without, '', $var);
     } elseif (is_array($var)) {
       $var = array_diff($var, [$without]);
+    }
+
+    return $var;
+  }
+
+  public function appendToKey($var, $key, $value) {
+    if (!is_array($var)) {
+      return $var;
+    }
+
+    if (!isset($var[$key])) {
+      $var[$key] = '';
+    }
+
+    if (is_array($var[$key])) {
+      $var[$key][] = $value;
+    } else {
+      $var[$key] .= $value;
     }
 
     return $var;
