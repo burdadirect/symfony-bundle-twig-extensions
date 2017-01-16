@@ -18,7 +18,6 @@
   },
   "require": {
     "php": ">=7.0",
-    "ext-tidy" : "*",
     "ext-mbstring": "*",
     "symfony/symfony": "~3.0",
     "twig/twig": "~2.1"
