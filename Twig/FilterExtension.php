@@ -9,6 +9,8 @@ class FilterExtension extends \Twig_Extension
     return array(
       new \Twig_SimpleFilter('token', array($this, 'tokenFilter')),
       new \Twig_SimpleFilter('without', array($this, 'withoutFilter')),
+      new \Twig_SimpleFilter('unique', array($this, 'uniqueFilter')),
+      new \Twig_SimpleFilter('push', array($this, 'pushFilter')),
       new \Twig_SimpleFilter('appendToKey', array($this, 'appendToKey')),
       new \Twig_SimpleFilter('cssClasses', array($this, 'cssClasses')),
       new \Twig_SimpleFilter('decimals', array($this, 'decimalsFilter')),
@@ -36,6 +38,22 @@ class FilterExtension extends \Twig_Extension
       $var = str_replace($without, '', $var);
     } elseif (is_array($var)) {
       $var = array_diff($var, [$without]);
+    }
+
+    return $var;
+  }
+
+  public function uniqueFilter($var) {
+    if (is_array($var)) {
+      $var = array_unique($var);
+    }
+
+    return $var;
+  }
+
+  public function pushFilter($var, $push) {
+    if (is_array($var)) {
+      array_push($var, $push);
     }
 
     return $var;
