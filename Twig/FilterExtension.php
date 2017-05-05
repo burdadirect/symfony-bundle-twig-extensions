@@ -16,6 +16,7 @@ class FilterExtension extends \Twig_Extension
       new \Twig_SimpleFilter('decimals', array($this, 'decimalsFilter')),
       new \Twig_SimpleFilter('bytes', array($this, 'bytesFilter')),
       new \Twig_SimpleFilter('link', array($this, 'link'), array('is_safe' => array('html'))),
+      new \Twig_SimpleFilter('filterVar', array($this, 'filterVar')),
     );
   }
 
@@ -26,6 +27,10 @@ class FilterExtension extends \Twig_Extension
   /****************************************************************************/
   /* FILTER                                                                   */
   /****************************************************************************/
+
+  public function filterVar($var, $filter, $options = NULL) {
+    return filter_var($var, $filter, $options);
+  }
 
   public function tokenFilter($string, $sep = ' ') {
     $tokens = explode($sep, $string);
