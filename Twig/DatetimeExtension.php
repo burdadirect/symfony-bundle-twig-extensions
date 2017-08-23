@@ -8,6 +8,7 @@ class DatetimeExtension extends \Twig_Extension
   public function getFilters() {
     return array(
       new \Twig_SimpleFilter('datetime_diff', array($this, 'getDatetimeDiff')),
+      new \Twig_SimpleFilter('dateOrDefault', array($this, 'getDateOrDefault')),
     );
   }
 
@@ -35,7 +36,15 @@ class DatetimeExtension extends \Twig_Extension
 
     $dateDiff = $datetime->diff($compareDatetime);
 
-		return $dateDiff->format($format);
+    return $dateDiff->format($format);
+  }
+
+  public function getDateOrDefault($datetime, $format, $default = '') {
+    if ($datetime instanceof \DateTime) {
+      return $datetime->format($format);
+    }
+
+    return $default;
   }
 
 }
