@@ -9,6 +9,7 @@ class DatetimeExtension extends \Twig_Extension
     return array(
       new \Twig_SimpleFilter('datetime_diff', array($this, 'getDatetimeDiff')),
       new \Twig_SimpleFilter('dateOrDefault', array($this, 'getDateOrDefault')),
+      new \Twig_SimpleFilter('strftimeOrDefault', array($this, 'getStrftimeOrDefault')),
     );
   }
 
@@ -42,6 +43,14 @@ class DatetimeExtension extends \Twig_Extension
   public function getDateOrDefault($datetime, $format, $default = '') {
     if ($datetime instanceof \DateTime) {
       return $datetime->format($format);
+    }
+
+    return $default;
+  }
+
+  public function getStrftimeOrDefault($datetime, $format, $default = '') {
+    if ($datetime instanceof \DateTime) {
+      return strftime($format, $datetime->getTimestamp());
     }
 
     return $default;
