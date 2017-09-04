@@ -5,7 +5,7 @@ namespace HBM\TwigExtensionsBundle\Twig;
 class ObjectExtension extends \Twig_Extension
 {
 
-  public function getTests() {
+  public function getTests() : array {
     return [
       'instanceof' => new \Twig_SimpleTest('instanceof', array(
         $this,
@@ -14,7 +14,7 @@ class ObjectExtension extends \Twig_Extension
     ];
   }
 
-  public function getFunctions() {
+  public function getFunctions() : array {
     return [
       'classShort' => new \Twig_SimpleFunction('classShort', array(
         $this,
@@ -52,7 +52,7 @@ class ObjectExtension extends \Twig_Extension
    * @param $instance
    * @return bool
    */
-  public function isInstanceof($var, $instance) {
+  public function isInstanceof($var, $instance) : bool {
     return $var instanceof $instance;
   }
 

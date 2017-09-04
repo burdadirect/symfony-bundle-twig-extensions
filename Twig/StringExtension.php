@@ -25,15 +25,14 @@ TXT;
   /* DEFINITIONS                                                              */
   /****************************************************************************/
 
-  public function getTests() {
+  public function getTests() : array {
     return [
       'prefixed' => new \Twig_SimpleTest('prefixed', array($this, 'isPrefixed')),
       'string' => new \Twig_SimpleTest('string', array($this, 'isString'))
     ];
   }
 
-  public function getFunctions()
-  {
+  public function getFunctions() : array {
     return array(
       new \Twig_SimpleFunction('uuid', array($this, 'getUuid')),
       new \Twig_SimpleFunction('loreipsum', array($this, 'getLoreipsum')),
@@ -78,7 +77,7 @@ TXT;
    * @param $prefixes
    * @return bool
    */
-  public function isPrefixed($var, $prefixes) {
+  public function isPrefixed($var, $prefixes) : bool {
     if (!is_array($prefixes)) {
       $prefixes = [$prefixes];
     }
@@ -96,7 +95,7 @@ TXT;
    * @param $var
    * @return bool
    */
-  public function isString($var) {
+  public function isString($var) : bool {
     return is_string($var);
   }
 

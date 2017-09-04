@@ -5,7 +5,7 @@ namespace HBM\TwigExtensionsBundle\Twig;
 class DatetimeExtension extends \Twig_Extension
 {
 
-  public function getFilters() {
+  public function getFilters() : array {
     return array(
       new \Twig_SimpleFilter('datetime_diff', array($this, 'getDatetimeDiff')),
       new \Twig_SimpleFilter('dateOrDefault', array($this, 'getDateOrDefault')),
@@ -21,7 +21,16 @@ class DatetimeExtension extends \Twig_Extension
   /* FILTERS                                                                  */
   /****************************************************************************/
 
-  public function getDatetimeDiff($datetime, $format = '%dd %hh', $compareDatetime = NULL) {
+  /**
+   * Get datetime difference.
+   *
+   * @param $datetime
+   * @param string $format
+   * @param \DateTime|null $compareDatetime
+   *
+   * @return string
+   */
+  public function getDatetimeDiff($datetime, $format = '%dd %hh', $compareDatetime = NULL) : string {
     if (!$datetime instanceof \DateTime) {
       try {
         $datetime = new \DateTime($datetime);
@@ -32,7 +41,7 @@ class DatetimeExtension extends \Twig_Extension
     }
 
     if ($compareDatetime === NULL) {
-      $compareDatetime = new \DateTime('now');
+      $compareDatetime = new \DateTime();
     }
 
     $dateDiff = $datetime->diff($compareDatetime);

@@ -5,12 +5,15 @@ namespace HBM\TwigExtensionsBundle\Twig;
 class FilterExtension extends \Twig_Extension
 {
 
-  public function getFilters() {
+  public function getFilters() : array {
     return array(
       new \Twig_SimpleFilter('token', array($this, 'tokenFilter')),
       new \Twig_SimpleFilter('without', array($this, 'withoutFilter')),
       new \Twig_SimpleFilter('unique', array($this, 'uniqueFilter')),
       new \Twig_SimpleFilter('push', array($this, 'pushFilter')),
+      new \Twig_SimpleFilter('pop', array($this, 'popFilter')),
+      new \Twig_SimpleFilter('unshift', array($this, 'unshiftFilter')),
+      new \Twig_SimpleFilter('shift', array($this, 'shiftFilter')),
       new \Twig_SimpleFilter('appendToKey', array($this, 'appendToKey')),
       new \Twig_SimpleFilter('cssClasses', array($this, 'cssClasses')),
       new \Twig_SimpleFilter('decimals', array($this, 'decimalsFilter')),
@@ -58,7 +61,31 @@ class FilterExtension extends \Twig_Extension
 
   public function pushFilter($var, $push) {
     if (is_array($var)) {
-      array_push($var, $push);
+      $var[] = $push;
+    }
+
+    return $var;
+  }
+
+  public function popFilter($var) {
+    if (is_array($var)) {
+      return array_pop($var);
+    }
+
+    return $var;
+  }
+
+  public function unshiftFilter($var, $push) {
+    if (is_array($var)) {
+      array_unshift($var, $push);
+    }
+
+    return $var;
+  }
+
+  public function shiftFilter($var) {
+    if (is_array($var)) {
+      return array_shift($var);
     }
 
     return $var;
@@ -95,21 +122,24 @@ class FilterExtension extends \Twig_Extension
     if ($bytes < 0) {
       return '>2' . $sep . 'GB';
     }
-    elseif ($bytes < $kilobyte) {
+
+    if ($bytes < $kilobyte) {
       return $bytes . $sep . 'B';
     }
-    elseif ($bytes < $megabyte) {
+
+    if ($bytes < $megabyte) {
       return number_format($bytes / $kilobyte, $decimals, $dec_point, $thousands_sep) . $sep . 'KB';
     }
-    elseif ($bytes < $gigabyte) {
+
+    if ($bytes < $gigabyte) {
       return number_format($bytes / $megabyte, $decimals, $dec_point, $thousands_sep) . $sep . 'MB';
     }
-    elseif ($bytes < $terabyte) {
+
+    if ($bytes < $terabyte) {
       return number_format($bytes / $gigabyte, $decimals, $dec_point, $thousands_sep) . $sep . 'GB';
     }
-    else {
-      return number_format($bytes / $terabyte, $decimals, $dec_point, $thousands_sep) . $sep . 'TB';
-    }
+
+    return number_format($bytes / $terabyte, $decimals, $dec_point, $thousands_sep) . $sep . 'TB';
   }
 
   // Only returns the decimal places of a float.
@@ -128,16 +158,12 @@ class FilterExtension extends \Twig_Extension
     $regex_url = "/(href=\"|>)?(\b(?:(?:https?|ftp|file|[A-Za-z]+):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#\/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[A-Z0-9+&@#\/%=~_|$]))(<\/a>)?/i";
 
     return preg_replace_callback($regex_url, function($matches) use ($text, $title) {
-      if (count($matches) == 4) {
-        if (($matches[1] == '>') && ($matches[3] == '</a>')) {
-          return $matches[0];
-        }
+      if ((count($matches) === 4) && ($matches[1] === '>') && ($matches[3] === '</a>')) {
+        return $matches[0];
       }
 
-      if (count($matches) == 3) {
-        if ($matches[1] == 'href="') {
-          return $matches[0];
-        }
+      if ((count($matches) === 3) && ($matches[1] === 'href="')) {
+        return $matches[0];
       }
 
       return '<a href="'.$matches[0].'" target="_blank" title="'.sprintf($title, $matches[0]).'">'.sprintf($text, $matches[0]).'</a>';

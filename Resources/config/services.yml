@@ -2,6 +2,11 @@ parameters:
 
 services:
     # TWIG
+    hbm.twig_extensions.attributes:
+        class: HBM\TwigExtensionsBundle\Twig\AttributesExtension
+        tags:
+            - { name: twig.extension }
+
     hbm.twig_extensions.filter:
         class: HBM\TwigExtensionsBundle\Twig\FilterExtension
         tags:

@@ -15,22 +15,19 @@ class BaseUrlExtension extends \Twig_Extension
    */
   protected $base_url_videos;
 
-  public function __construct($base_url_config)
-  {
+  public function __construct($base_url_config) {
     $this->base_url_images = $base_url_config['images'];
     $this->base_url_videos = $base_url_config['videos'];
   }
 
-  public function getFilters()
-  {
+  public function getFilters() : array {
     return array(
       new \Twig_SimpleFilter('baseurlImages', array($this, 'baseurlImagesFilter')),
       new \Twig_SimpleFilter('baseurlVideos', array($this, 'baseurlVideosFilter')),
     );
   }
 
-  public function getName()
-  {
+  public function getName() {
     return 'hbm_twig_extensions_baseurl';
   }
 
@@ -38,13 +35,11 @@ class BaseUrlExtension extends \Twig_Extension
   /* FILTERS                                                                  */
   /****************************************************************************/
 
-  public function baseurlImagesFilter($src)
-  {
+  public function baseurlImagesFilter($src) {
     return rtrim($this->base_url_images, '/').'/'.ltrim($src, '/');
   }
 
-  public function baseurlVideosFilter($src)
-  {
+  public function baseurlVideosFilter($src) {
     return rtrim($this->base_url_videos, '/').'/'.ltrim($src, '/');
   }
 

@@ -24,16 +24,14 @@ class ResponsiveSvgExtension extends \Twig_Extension
     $this->logger = $logger;
   }
 
-  public function getFilters()
-  {
+  public function getFilters() : array {
     return array(
       new \Twig_SimpleFilter('responsiveSVG', array($this, 'generateResponsiveSvg'), ['is_safe' => ['html']]),
       new \Twig_SimpleFilter('responsiveSourceSVG', array($this, 'generateResponsiveSourceSvg'), ['is_safe' => ['html']]),
     );
   }
 
-  public function getName()
-  {
+  public function getName() {
     return 'hbm_twig_extensions_responsive_svg';
   }
 
@@ -66,14 +64,16 @@ class ResponsiveSvgExtension extends \Twig_Extension
     $pathResolved = $this->resolvePath($uri);
     $svgContent = $this->loadContent($pathResolved);
 
-    $svgContent = str_replace('<?xml version="1.0" encoding="utf-8"?>', '', $svgContent);
-    $svgContent = str_replace('<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">', '', $svgContent);
-    $svgContent = str_replace('<svg ', '<svg style="display:none;" ', $svgContent);
+    $searchReplace = [
+      '<?xml version="1.0" encoding="utf-8"?>' => '',
+      '<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">' => '',
+      '<svg ' => '<svg style="display:none;" ',
+    ];
 
-    return $svgContent;
+    return str_replace(array_keys($searchReplace), array_values($searchReplace), $svgContent);
   }
 
-  public function generateResponsiveSvg($uri, $config = [])
+  public function generateResponsiveSvg($uri, array $config = [])
   {
     $default = [
       'offsetX' => 0,
@@ -81,7 +81,7 @@ class ResponsiveSvgExtension extends \Twig_Extension
       'class' => ''
     ];
 
-    $config = array_merge($default, (array) $config);
+    $config = array_merge($default, $config);
 
     list($file, $identifier) = explode('#', $uri);
 
@@ -105,10 +105,9 @@ class ResponsiveSvgExtension extends \Twig_Extension
 
     $crawler = new Crawler($svg);
 
+    $item = $crawler;
     if (strlen($identifier) > 0) {
       $item = $crawler->filter('#' . $identifier);
-    } else {
-      $item = $crawler;
     }
 
     if (!$item->count()) {
@@ -118,13 +117,13 @@ class ResponsiveSvgExtension extends \Twig_Extension
 
     $viewBox = $item->attr('viewBox');
 
-    if (strlen($viewBox) == 0) {
+    if ($viewBox === '') {
       $this->logger->debug('Cannot find viewBox attribute in ' . $uri);
       return '';
     }
 
     // Build markup
-    list($x, $y, $width, $height) = explode(' ', $viewBox);
+    list(, , $width, $height) = explode(' ', $viewBox);
 
     $width += $config['offsetX'];
     $height += $config['offsetY'];
