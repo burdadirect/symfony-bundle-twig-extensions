@@ -4,6 +4,8 @@ namespace HBM\TwigExtensionsBundle\Utils;
 
 class HtmlAttributes {
 
+  use HtmlAttributesTrait;
+
   private static $standalone = [
     'selected', 'checked', 'disabled', 'readonly', 'multiple',
     'noresize', 'compact', 'ismap', 'nowrap', 'declare', 'defer', 'noshade'
@@ -22,12 +24,52 @@ class HtmlAttributes {
   /**
    * HtmlAttributes constructor.
    *
-   * @param array $attributes
+   * @param mixed $attributes
    */
-  public function __construct(array $attributes = []) {
-    foreach ($attributes as $key => $value) {
-      $this->set($key, $value);
+  public function __construct($attributes = NULL) {
+    if ($attributes instanceof self) {
+      $this->classes = $attributes->getClasses();
+      $this->attributes = $attributes->getAttributes();
+    } elseif (is_array($attributes)) {
+      foreach ($attributes as $key => $value) {
+        $this->set($key, $value);
+      }
     }
+  }
+
+  /****************************************************************************/
+
+  /**
+   * @return string[]
+   */
+  public function getClasses() {
+    return $this->classes;
+  }
+
+  /**
+   * @return array
+   */
+  public function getAttributes() {
+    return $this->attributes;
+  }
+
+  /****************************************************************************/
+
+  /**
+   * Sets multiple html attributes.
+   *
+   * @param $attributes
+   *
+   * @return self
+   */
+  public function add($attributes) {
+    if (is_array($attributes)) {
+      foreach ($attributes as $key => $value) {
+        $this->set($key, $value);
+      }
+    }
+
+    return $this;
   }
 
   /**
@@ -92,6 +134,8 @@ class HtmlAttributes {
     return $this->attributes[$key] ?? NULL;
   }
 
+  /****************************************************************************/
+
   public function addClass($class) : self {
     $this->classes[] = trim($class);
     $this->classes = array_unique($this->classes);
@@ -112,6 +156,8 @@ class HtmlAttributes {
 
     return $this;
   }
+
+  /****************************************************************************/
 
   public function __toString() {
     try {

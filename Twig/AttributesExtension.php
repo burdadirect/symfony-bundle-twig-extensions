@@ -29,16 +29,16 @@ class AttributesExtension extends \Twig_Extension {
   /**
    * Create an html attribute object.
    *
-   * @param array $attributes
+   * @param HtmlAttributes|array|null $attributes
    *
    * @return \HBM\TwigExtensionsBundle\Utils\HtmlAttributes
    */
-  public function attributes(array $attributes = []) : HtmlAttributes {
+  public function attributes($attributes = NULL) : HtmlAttributes {
     return new HtmlAttributes($attributes);
   }
 
   /****************************************************************************/
-  /* TEXTS                                                                    */
+  /* TESTS                                                                    */
   /****************************************************************************/
 
   /**
