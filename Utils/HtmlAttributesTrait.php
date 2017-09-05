@@ -75,4 +75,14 @@ trait HtmlAttributesTrait {
     return $this;
   }
 
+  public function disabled() {
+    if (func_num_args() === 0) {
+      return $this->getAttributesObject()->get('disabled');
+    }
+
+    $this->getAttributesObject()->set('disabled', func_get_arg(0));
+
+    return $this;
+  }
+
 }

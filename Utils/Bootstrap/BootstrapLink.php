@@ -40,9 +40,7 @@ class BootstrapLink {
       return $this->getIcons();
     }
 
-    foreach (func_get_args() as $icon) {
-      $this->addIcon($icon);
-    }
+    $this->addIcons(func_get_args());
 
     return $this;
   }
@@ -117,8 +115,8 @@ class BootstrapLink {
       return $this->attributes;
     }
 
-    if ((func_num_args() === 1) && (func_get_arg(0) instanceof HtmlAttributes)) {
-      $this->setAttributes(func_get_arg(0));
+    if (func_num_args() === 1) {
+      $this->setAttributes(new HtmlAttributes(func_get_arg(0)));
     }
 
     return $this;

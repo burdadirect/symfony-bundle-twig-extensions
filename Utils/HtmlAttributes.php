@@ -163,7 +163,7 @@ class HtmlAttributes {
     try {
       $attributes = [];
       if (count($this->classes) > 0) {
-        $attributes[] = 'class="'.implode(' ', $this->classes).'"';
+        $attributes[] = 'class="'.implode(' ', array_diff($this->classes, [''])).'"';
       }
 
       foreach ($this->attributes as $key => $value) {
