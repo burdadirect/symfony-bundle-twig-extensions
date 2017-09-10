@@ -172,7 +172,7 @@ class HtmlAttributes {
             $attributes[] = $key.'="'.$key.'"';
           }
         } else {
-          $attributes[] = $key.'="'.htmlentities($value, ENT_COMPAT).'"';
+          $attributes[] = $key.'="'.str_replace('"', '&quot;', $value).'"';
         }
       }
 

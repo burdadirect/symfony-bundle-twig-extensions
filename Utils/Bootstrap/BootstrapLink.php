@@ -32,7 +32,7 @@ class BootstrapLink {
   /****************************************************************************/
 
   public function icon() {
-    return $this->icons(func_get_args());
+    return $this->icons(...func_get_args());
   }
 
   public function icons() {
@@ -40,7 +40,7 @@ class BootstrapLink {
       return $this->getIcons();
     }
 
-    $this->addIcons(func_get_args());
+    $this->addIcons(...func_get_args());
 
     return $this;
   }
@@ -72,6 +72,10 @@ class BootstrapLink {
     }
 
     return $this;
+  }
+
+  public function getIcon() : array {
+    return $this->icons;
   }
 
   public function getIcons() : array {
