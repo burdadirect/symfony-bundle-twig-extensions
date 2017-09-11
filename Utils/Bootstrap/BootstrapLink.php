@@ -128,6 +128,12 @@ class BootstrapLink {
 
   /****************************************************************************/
 
+  public function attr($key, $value) {
+    $this->getAttributes()->set($key, $value);
+
+    return $this;
+  }
+
   public function attributes() {
     if (func_num_args() === 0) {
       return $this->attributes;
