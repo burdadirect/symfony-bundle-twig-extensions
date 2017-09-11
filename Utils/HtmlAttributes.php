@@ -136,13 +136,6 @@ class HtmlAttributes {
 
   /****************************************************************************/
 
-  public function addClass($class) : self {
-    $this->classes[] = trim($class);
-    $this->classes = array_unique($this->classes);
-
-    return $this;
-  }
-
   public function addClasses($classes) : self {
     if (!is_array($classes)) {
       $classes = explode(' ', $classes);

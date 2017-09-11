@@ -29,6 +29,20 @@ class BootstrapLink {
     $this->attributes = new HtmlAttributes();
   }
 
+  /**
+   * Returns a copy of the bootstrap link.
+   *
+   * @return BootstrapLink
+   */
+  public function copy() : self {
+    $copy = new BootstrapLink();
+    $copy->setIcons($this->getIcons());
+    $copy->setText($this->getText());
+    $copy->setAttributes($this->getAttributes());
+
+    return $copy;
+  }
+
   /****************************************************************************/
 
   public function icon() {

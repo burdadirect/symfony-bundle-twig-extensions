@@ -13,8 +13,14 @@ trait HtmlAttributesTrait {
       return $this->getAttributesObject()->getClasses();
     }
 
-    foreach (func_get_args() as $classes) {
-      $this->getAttributesObject()->addClasses($classes);
+    if ((func_num_args() === 2) && is_bool(func_get_arg(1))) {
+      if (func_get_arg(1)) {
+        $this->getAttributesObject()->addClasses(func_get_arg(0));
+      }
+    } else {
+      foreach (func_get_args() as $classes) {
+        $this->getAttributesObject()->addClasses($classes);
+      }
     }
 
     return $this;
