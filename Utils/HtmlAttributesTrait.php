@@ -14,7 +14,7 @@ trait HtmlAttributesTrait {
     }
 
     if ((func_num_args() === 2) && is_bool(func_get_arg(1))) {
-      if (func_get_arg(1)) {
+      if (func_get_arg(1) === TRUE) {
         $this->getAttributesObject()->addClasses(func_get_arg(0));
       }
     } else {

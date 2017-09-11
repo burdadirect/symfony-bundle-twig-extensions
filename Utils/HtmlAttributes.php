@@ -37,13 +37,46 @@ class HtmlAttributes {
     }
   }
 
+  /**
+   * Returns a copy of the html attributes.
+   *
+   * @return HtmlAttributes
+   */
+  public function copy() : self {
+    $copy = new HtmlAttributes();
+    $copy->setClasses($this->getClasses());
+    $copy->setAttributes($this->getAttributes());
+
+    return $copy;
+  }
+
   /****************************************************************************/
+
+  /**
+   * @param string[] $classes
+   * @return $this
+   */
+  public function setClasses($classes) {
+    $this->classes = $classes;
+
+    return $this;
+  }
 
   /**
    * @return string[]
    */
   public function getClasses() {
     return $this->classes;
+  }
+
+  /**
+   * @param string[] $attributes
+   * @return $this
+   */
+  public function setAttributes($attributes) {
+    $this->attributes = $attributes;
+
+    return $this;
   }
 
   /**

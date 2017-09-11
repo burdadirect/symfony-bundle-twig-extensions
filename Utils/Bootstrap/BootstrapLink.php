@@ -38,7 +38,7 @@ class BootstrapLink {
     $copy = new BootstrapLink();
     $copy->setIcons($this->getIcons());
     $copy->setText($this->getText());
-    $copy->setAttributes($this->getAttributes());
+    $copy->setAttributes($this->getAttributes()->copy());
 
     return $copy;
   }
