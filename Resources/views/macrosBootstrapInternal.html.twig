@@ -1,0 +1,63 @@
+{% macro icons(icons) %}
+  {%- spaceless -%}
+    {% set icons = icons|default([]) %}
+    {% if icons is string %}
+      {% set icons = [icons] %}
+    {% endif %}
+  {%- endspaceless -%}
+  {%- for icon in icons -%}
+    <span {{ attributes().class(icon).class('fa')|raw }}></span>&nbsp;
+  {%- endfor -%}
+{% endmacro %}
+
+{# -------------------------------------------------------------------------- #}
+
+{% macro dropdown(bsLink, items, attributesContainer, attributesMenu) %}
+  {% import _self as self %}
+  {%- spaceless -%}
+    {% set attributes = bsLink.attributes.class('btn dropdown-toggle') %}
+    {% set attributes = attributes.setIfEmpty('title', bsLink.text|striptags) %}
+    {% set attributes = attributes.set('id', uuid() ~ '-dropdown') %}
+    {% set attributes = attributes.set('type', 'button').set('data-toggle', 'dropdown') %}
+    {% set attributes = attributes.set('aria-haspopup', 'true').set('aria-expanded', 'false') %}
+
+    {% set attributesMenu = attributes(attributesMenu) %}
+    {% set attributesMenu = attributesMenu.class('dropdown-menu') %}
+    {% set attributesMenu = attributesMenu.set('aria-labelledby', attributes.get('id')) %}
+  {%- endspaceless -%}
+
+  <div {{ attributes(attributesContainer)|raw }}>
+    <button {{ attributes|raw }}>
+      <span class="btn-text">{{ self.icons(bsLink.icons) }}{{ bsLink.text|raw }}</span>
+    </button>
+    <div {{ attributesMenu|raw }}>
+{% for item in items %}
+    {{ self.dropdownItem(item) }}
+{% endfor %}
+    </div>
+  </div>
+{% endmacro %}
+
+{# -------------------------------------------------------------------------- #}
+
+{% macro dropdownItem(item) %}
+  {% import _self as self %}
+  {%- spaceless -%}
+    {% if item is not bsDropdownItem %}
+      {% set item = bsDropdownItem().apply(item) %}
+    {% endif %}
+
+    {% set attributes = item. attributes %}
+
+    {% if item.divider %}
+      <div {{ attributes.class('dropdown-divider')|raw }}></div>
+    {% elseif item.header %}
+      <div {{ attributes.class('dropdown-header')|raw }}>{{ item.header|raw }}</div>
+    {% else %}
+      {% if attributes.get('disabled') %}
+        {% set attributes = attributes.class('disabled').set('aria-disabled', 'true') %}
+      {% endif %}
+      <a {{ attributes.class('dropdown-item')|raw }}>{{- self.icons(item.icons) -}}{{- item.text|raw -}}</a>
+    {% endif %}
+  {%- endspaceless -%}
+{% endmacro %}
