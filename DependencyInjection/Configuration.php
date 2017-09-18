@@ -22,7 +22,7 @@ class Configuration implements ConfigurationInterface
 
     $rootNode
       ->children()
-        ->arrayNode('base_url')
+        ->arrayNode('base_url')->addDefaultsIfNotSet()
           ->children()
             ->scalarNode('images')->defaultValue('')->end()
             ->scalarNode('videos')->defaultValue('')->end()
