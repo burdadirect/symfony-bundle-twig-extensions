@@ -1,6 +1,8 @@
 parameters:
 
 services:
+    _defaults: { public: true }
+
     # TWIG
     hbm.twig_extensions.attributes:
         class: HBM\TwigExtensionsBundle\Twig\AttributesExtension
