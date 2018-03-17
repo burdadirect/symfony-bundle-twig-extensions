@@ -31,6 +31,7 @@ class Configuration implements ConfigurationInterface
         ->arrayNode('responsive_svg')->addDefaultsIfNotSet()
           ->children()
             ->scalarNode('inline')->defaultFalse()->info('Setting this requires you to use responsiveSourceSVG to include the svg stack in the page.')->end()
+            ->scalarNode('public_dir')->info('Set this to the name of the public directory. (Symfony 3: "web", Symfony 4: "public")')->end()
             ->arrayNode('aliases')
               ->prototype('array')
                 ->children()
