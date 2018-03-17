@@ -19,7 +19,7 @@
   "require": {
     "php": ">=7.1",
     "ext-mbstring": "*",
-    "symfony/symfony": "^3.0|^4.0",
+    "symfony/config": "^3.0|^4.0",
     "twig/twig": "^2.0",
     "roave/security-advisories": "dev-master"
   },
