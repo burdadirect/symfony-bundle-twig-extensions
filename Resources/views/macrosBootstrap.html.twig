@@ -8,14 +8,14 @@
 {# -------------------------------------------------------------------------- #}
 
 {% macro link(bsLink) %}
-  {% import '@HBMTwigExtensionsBundle/macrosBootstrapInternal.html.twig' as mbi %}
+  {% import '@HBMTwigExtensions/macrosBootstrapInternal.html.twig' as mbi %}
   <a {{ bsLink.attributes|raw }}><span class="btn-text">{{ mbi.icons(bsLink.icons) }}{{ bsLink.text|raw }}</span></a>
 {% endmacro %}
 
 {# -------------------------------------------------------------------------- #}
 
 {% macro btn(bsLink) %}
-  {% import '@HBMTwigExtensionsBundle/macrosBootstrapInternal.html.twig' as mbi %}
+  {% import '@HBMTwigExtensions/macrosBootstrapInternal.html.twig' as mbi %}
   <a {{ bsLink.attributes.class('btn')|raw }}><span class="btn-text">{{ mbi.icons(bsLink.icons) }}{{ bsLink.text|raw }}</span></a>
 {% endmacro %}
 
@@ -32,20 +32,20 @@
 {# -------------------------------------------------------------------------- #}
 
 {% macro button(bsLink) %}
-  {% import '@HBMTwigExtensionsBundle/macrosBootstrapInternal.html.twig' as mbi %}
+  {% import '@HBMTwigExtensions/macrosBootstrapInternal.html.twig' as mbi %}
   <button {{ bsLink.attributes.class('btn')|raw }}><span class="btn-text">{{ mbi.icons(bsLink.icons) }}{{ bsLink.text|raw }}</span></button>
 {% endmacro %}
 
 {# -------------------------------------------------------------------------- #}
 
 {% macro dropdownStandalone(bsLink, items, attributesContainer, attributesMenu) %}
-  {% import '@HBMTwigExtensionsBundle/macrosBootstrapInternal.html.twig' as mbi %}
+  {% import '@HBMTwigExtensions/macrosBootstrapInternal.html.twig' as mbi %}
   {{ mbi.dropdown(bsLink, items, attributes(attributesContainer).class('dropdown'), attributesMenu) }}
 {% endmacro %}
 
 {# -------------------------------------------------------------------------- #}
 
 {% macro dropdownButtonGroup(bsLink, items, attributesContainer, attributesMenu) %}
-  {% import '@HBMTwigExtensionsBundle/macrosBootstrapInternal.html.twig' as mbi %}
+  {% import '@HBMTwigExtensions/macrosBootstrapInternal.html.twig' as mbi %}
   {{ mbi.dropdown(bsLink, items, attributes(attributesContainer).class('btn-group').set('role', 'group'), attributesMenu) }}
 {% endmacro %}
