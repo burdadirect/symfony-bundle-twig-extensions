@@ -30,7 +30,7 @@ class HtmlAttributes {
     if ($attributes instanceof self) {
       $this->classes = $attributes->getClasses();
       $this->attributes = $attributes->getAttributes();
-    } elseif (is_array($attributes)) {
+    } elseif (\is_array($attributes)) {
       foreach ($attributes as $key => $value) {
         $this->set($key, $value);
       }
@@ -96,7 +96,7 @@ class HtmlAttributes {
    * @return self
    */
   public function add($attributes) {
-    if (is_array($attributes)) {
+    if (\is_array($attributes)) {
       foreach ($attributes as $key => $value) {
         $this->set($key, $value);
       }
@@ -170,7 +170,7 @@ class HtmlAttributes {
   /****************************************************************************/
 
   public function addClasses($classes) : self {
-    if (!is_array($classes)) {
+    if (!\is_array($classes)) {
       $classes = explode(' ', $classes);
     }
 
@@ -188,12 +188,12 @@ class HtmlAttributes {
   public function __toString() {
     try {
       $attributes = [];
-      if (count($this->classes) > 0) {
+      if (\count($this->classes) > 0) {
         $attributes[] = 'class="'.implode(' ', array_diff($this->classes, [''])).'"';
       }
 
       foreach ($this->attributes as $key => $value) {
-        if (in_array($key, self::$standalone, TRUE)) {
+        if (\in_array($key, self::$standalone, TRUE)) {
           if ($value) {
             $attributes[] = $key.'="'.$key.'"';
           }

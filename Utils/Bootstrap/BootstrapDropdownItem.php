@@ -27,7 +27,7 @@ class BootstrapDropdownItem extends BootstrapLink {
   /****************************************************************************/
 
   public function divider() {
-    if (func_num_args() === 0) {
+    if (\func_num_args() === 0) {
       return $this->divider;
     }
 
@@ -37,7 +37,7 @@ class BootstrapDropdownItem extends BootstrapLink {
   }
 
   public function header() {
-    if (func_num_args() === 0) {
+    if (\func_num_args() === 0) {
       return $this->header;
     }
 
