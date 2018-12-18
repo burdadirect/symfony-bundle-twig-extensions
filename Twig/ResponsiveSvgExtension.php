@@ -42,7 +42,7 @@ class ResponsiveSvgExtension extends \Twig_Extension
   private function resolvePath($file) {
     if (isset($this->config['aliases'][$file]['path'])) {
       $path = $this->config['aliases'][$file]['path'];
-      return $this->kernel->getRootDir().'/../'.$this->config['public_dir'].'/'.$path;
+      return $this->kernel->getProjectDir().'/../'.$this->config['public_dir'].'/'.$path;
     }
 
     return $file;
@@ -74,7 +74,7 @@ class ResponsiveSvgExtension extends \Twig_Extension
     return str_replace(array_keys($searchReplace), array_values($searchReplace), $svgContent);
   }
 
-  public function generateResponsiveSvg($uri, array $config = [])
+  public function generateResponsiveSvg($uri, array $config = []) : string
   {
     $default = [
       'offsetX' => 0,
@@ -93,7 +93,7 @@ class ResponsiveSvgExtension extends \Twig_Extension
     if ($this->config['inline']) {
       $href = '';
     }
-    if (\strlen($identifier) > 0) {
+    if ($identifier !== '') {
       $href .= '#' . $identifier;
     }
 
@@ -107,7 +107,7 @@ class ResponsiveSvgExtension extends \Twig_Extension
     $crawler = new Crawler($svg);
 
     $item = $crawler;
-    if (\strlen($identifier) > 0) {
+    if ($identifier !== '') {
       $item = $crawler->filter('#' . $identifier);
     }
 
@@ -151,7 +151,7 @@ class ResponsiveSvgExtension extends \Twig_Extension
     $filler->setAttribute('style', 'width: 100%; height: 0; overflow-hidden; padding-bottom: ' . $padding . '%');
     $wrapper->appendChild($filler);
 
-    if (\strlen($identifier) > 0) {
+    if ($identifier !== '') {
       $svg = $dom->createElement('svg');
       $svg->setAttribute('viewBox', '0 0 ' . $width . ' ' . $height);
 
