@@ -42,7 +42,7 @@ class ResponsiveSvgExtension extends \Twig_Extension
   private function resolvePath($file) {
     if (isset($this->config['aliases'][$file]['path'])) {
       $path = $this->config['aliases'][$file]['path'];
-      return $this->kernel->getProjectDir().$this->config['public_dir'].'/'.$path;
+      return $this->kernel->getProjectDir().'/'.$this->config['public_dir'].'/'.$path;
     }
 
     return $file;
