@@ -2,8 +2,7 @@
 
 namespace HBM\TwigExtensionsBundle\Twig;
 
-class FilterExtension extends \Twig_Extension
-{
+class FilterExtension extends \Twig_Extension {
 
   public function getFilters() : array {
     return array(
@@ -21,10 +20,6 @@ class FilterExtension extends \Twig_Extension
       new \Twig_SimpleFilter('link', array($this, 'link'), array('is_safe' => array('html'))),
       new \Twig_SimpleFilter('filterVar', array($this, 'filterVar')),
     );
-  }
-
-  public function getName() {
-    return 'hbm_twig_extensions_filter';
   }
 
   /****************************************************************************/
@@ -113,7 +108,7 @@ class FilterExtension extends \Twig_Extension
     return trim(preg_replace('!\s+!', ' ', $var));
   }
 
-  public function bytesFilter($bytes, $sep = ' ', $decimals = 2, $dec_point = ',', $thousands_sep = '.') {
+  public function bytesFilter($bytes, $sep = ' ', $decimals = 2, $dec_point = ',', $thousands_sep = '.') : string {
     $kilobyte = 1024;
     $megabyte = $kilobyte * 1024;
     $gigabyte = $megabyte * 1024;

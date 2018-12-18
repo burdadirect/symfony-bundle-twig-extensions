@@ -2,8 +2,7 @@
 
 namespace HBM\TwigExtensionsBundle\Twig;
 
-class ObjectExtension extends \Twig_Extension
-{
+class ObjectExtension extends \Twig_Extension {
 
   public function getTests() : array {
     return [
@@ -27,19 +26,29 @@ class ObjectExtension extends \Twig_Extension
     ];
   }
 
-  public function getName() {
-    return 'hbm_twig_extensions_object';
-  }
-
   /****************************************************************************/
   /* FUNCTIONS                                                                */
   /****************************************************************************/
 
-  public function getClassShort($object) {
+  /**
+   * @param $object
+   *
+   * @return string
+   *
+   * @throws \ReflectionException
+   */
+  public function getClassShort($object) : string {
     return (new \ReflectionClass($object))->getShortName();
   }
 
-  public function getClassFull($object) {
+  /**
+   * @param $object
+   *
+   * @return string
+   *
+   * @throws \ReflectionException
+   */
+  public function getClassFull($object) : string {
     return (new \ReflectionClass($object))->getName();
   }
 

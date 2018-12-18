@@ -2,8 +2,7 @@
 
 namespace HBM\TwigExtensionsBundle\Twig;
 
-class BaseUrlExtension extends \Twig_Extension
-{
+class BaseUrlExtension extends \Twig_Extension {
 
   /**
    * @var string
@@ -27,19 +26,15 @@ class BaseUrlExtension extends \Twig_Extension
     );
   }
 
-  public function getName() {
-    return 'hbm_twig_extensions_baseurl';
-  }
-
   /****************************************************************************/
   /* FILTERS                                                                  */
   /****************************************************************************/
 
-  public function baseurlImagesFilter($src) {
+  public function baseurlImagesFilter($src) : string {
     return rtrim($this->base_url_images, '/').'/'.ltrim($src, '/');
   }
 
-  public function baseurlVideosFilter($src) {
+  public function baseurlVideosFilter($src) : string {
     return rtrim($this->base_url_videos, '/').'/'.ltrim($src, '/');
   }
 

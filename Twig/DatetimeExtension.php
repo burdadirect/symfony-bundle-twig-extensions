@@ -2,8 +2,7 @@
 
 namespace HBM\TwigExtensionsBundle\Twig;
 
-class DatetimeExtension extends \Twig_Extension
-{
+class DatetimeExtension extends \Twig_Extension {
 
   public function getFilters() : array {
     return array(
@@ -11,10 +10,6 @@ class DatetimeExtension extends \Twig_Extension
       new \Twig_SimpleFilter('dateOrDefault', array($this, 'getDateOrDefault')),
       new \Twig_SimpleFilter('strftimeOrDefault', array($this, 'getStrftimeOrDefault')),
     );
-  }
-
-  public function getName() {
-    return 'hbm_twig_extensions_datetime';
   }
 
   /****************************************************************************/
@@ -29,6 +24,8 @@ class DatetimeExtension extends \Twig_Extension
    * @param \DateTime|null $compareDatetime
    *
    * @return string
+   *
+   * @throws \Exception
    */
   public function getDatetimeDiff($datetime, $format = '%dd %hh', $compareDatetime = NULL) : string {
     if (!$datetime instanceof \DateTime) {

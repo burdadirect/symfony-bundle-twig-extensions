@@ -18,10 +18,6 @@ class AttributesExtension extends \Twig_Extension {
     ];
   }
 
-  public function getName() {
-    return 'hbm_twig_extensions_attributes';
-  }
-
   /****************************************************************************/
   /* FUNCTIONS                                                                */
   /****************************************************************************/

@@ -6,8 +6,7 @@ use Symfony\Bridge\Monolog\Logger;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpKernel\Kernel;
 
-class ResponsiveSvgExtension extends \Twig_Extension
-{
+class ResponsiveSvgExtension extends \Twig_Extension {
 
   /** @var Kernel */
   private $kernel;
@@ -29,10 +28,6 @@ class ResponsiveSvgExtension extends \Twig_Extension
       new \Twig_SimpleFilter('responsiveSVG', array($this, 'generateResponsiveSvg'), ['is_safe' => ['html']]),
       new \Twig_SimpleFilter('responsiveSourceSVG', array($this, 'generateResponsiveSourceSvg'), ['is_safe' => ['html']]),
     );
-  }
-
-  public function getName() {
-    return 'hbm_twig_extensions_responsive_svg';
   }
 
   /****************************************************************************/

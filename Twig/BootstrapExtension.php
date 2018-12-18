@@ -21,10 +21,6 @@ class BootstrapExtension extends \Twig_Extension {
     ];
   }
 
-  public function getName() {
-    return 'hbm_twig_extensions_bootstrap';
-  }
-
   /****************************************************************************/
   /* FUNCTIONS                                                                */
   /****************************************************************************/

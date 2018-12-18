@@ -2,8 +2,7 @@
 
 namespace HBM\TwigExtensionsBundle\Twig;
 
-class StringExtension extends \Twig_Extension
-{
+class StringExtension extends \Twig_Extension {
 
   private $loreipsum = <<<TXT
 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.   
@@ -39,10 +38,6 @@ TXT;
     );
   }
 
-  public function getName() {
-    return 'hbm_twig_extensions_string';
-  }
-
   /****************************************************************************/
   /* FUNCTIONS                                                                */
   /****************************************************************************/
@@ -51,6 +46,15 @@ TXT;
     return uniqid($prefix, $more_entropy);
   }
 
+  /**
+   * @param $numMin
+   * @param null $numMax
+   * @param null $randomStart
+   *
+   * @return bool|string
+   *
+   * @throws \Exception
+   */
   public function getLoreipsum($numMin, $numMax = NULL, $randomStart = NULL) {
     $length = $numMin;
     if ($numMax) {
