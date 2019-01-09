@@ -23,9 +23,9 @@
     "symfony/config": "^3.0|^4.0",
     "symfony/dependency-injection": "^3.0|^4.0",
     "twig/twig": "^2.0",
-    "symfony/dom-crawler": "^4.2",
-    "symfony/http-kernel": "^4.2",
-    "symfony/monolog-bridge": "^4.2"
+    "symfony/dom-crawler": "^3.0|^4.0",
+    "symfony/http-kernel": "^3.0|^4.0",
+    "symfony/monolog-bridge": "^3.0|^4.0"
 
   },
   "require-dev": {
