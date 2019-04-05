@@ -2,7 +2,11 @@
 
 namespace HBM\TwigExtensionsBundle\Twig;
 
-class StringExtension extends \Twig_Extension {
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
+use Twig\TwigTest;
+
+class StringExtension extends AbstractExtension {
 
   private $loreipsum = <<<TXT
 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.   
@@ -26,15 +30,15 @@ TXT;
 
   public function getTests() : array {
     return [
-      'prefixed' => new \Twig_SimpleTest('prefixed', array($this, 'isPrefixed')),
-      'string' => new \Twig_SimpleTest('string', array($this, 'isString'))
+      'prefixed' => new TwigTest('prefixed', array($this, 'isPrefixed')),
+      'string' => new TwigTest('string', array($this, 'isString'))
     ];
   }
 
   public function getFunctions() : array {
     return array(
-      new \Twig_SimpleFunction('uuid', array($this, 'getUuid')),
-      new \Twig_SimpleFunction('loreipsum', array($this, 'getLoreipsum')),
+      new TwigFunction('uuid', array($this, 'getUuid')),
+      new TwigFunction('loreipsum', array($this, 'getLoreipsum')),
     );
   }
 

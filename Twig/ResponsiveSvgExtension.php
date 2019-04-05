@@ -5,8 +5,10 @@ namespace HBM\TwigExtensionsBundle\Twig;
 use Symfony\Bridge\Monolog\Logger;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpKernel\Kernel;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
 
-class ResponsiveSvgExtension extends \Twig_Extension {
+class ResponsiveSvgExtension extends AbstractExtension {
 
   /** @var Kernel */
   private $kernel;
@@ -25,8 +27,8 @@ class ResponsiveSvgExtension extends \Twig_Extension {
 
   public function getFilters() : array {
     return array(
-      new \Twig_SimpleFilter('responsiveSVG', array($this, 'generateResponsiveSvg'), ['is_safe' => ['html']]),
-      new \Twig_SimpleFilter('responsiveSourceSVG', array($this, 'generateResponsiveSourceSvg'), ['is_safe' => ['html']]),
+      new TwigFilter('responsiveSVG', array($this, 'generateResponsiveSvg'), ['is_safe' => ['html']]),
+      new TwigFilter('responsiveSourceSVG', array($this, 'generateResponsiveSourceSvg'), ['is_safe' => ['html']]),
     );
   }
 

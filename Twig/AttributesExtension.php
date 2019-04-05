@@ -3,18 +3,21 @@
 namespace HBM\TwigExtensionsBundle\Twig;
 
 use HBM\TwigExtensionsBundle\Utils\HtmlAttributes;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
+use Twig\TwigTest;
 
-class AttributesExtension extends \Twig_Extension {
+class AttributesExtension extends AbstractExtension {
 
   public function getTests() : array {
     return [
-      'attributes' => new \Twig_SimpleTest('attributes', array($this, 'isAttributes')),
+      'attributes' => new TwigTest('attributes', array($this, 'isAttributes')),
     ];
   }
 
   public function getFunctions() : array {
     return [
-      new \Twig_SimpleFunction('attributes', [$this, 'attributes']),
+      new TwigFunction('attributes', [$this, 'attributes']),
     ];
   }
 
@@ -27,7 +30,7 @@ class AttributesExtension extends \Twig_Extension {
    *
    * @param HtmlAttributes|array|null $attributes
    *
-   * @return \HBM\TwigExtensionsBundle\Utils\HtmlAttributes
+   * @return HtmlAttributes
    */
   public function attributes($attributes = NULL) : HtmlAttributes {
     return new HtmlAttributes($attributes);

@@ -2,11 +2,15 @@
 
 namespace HBM\TwigExtensionsBundle\Twig;
 
-class ObjectExtension extends \Twig_Extension {
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
+use Twig\TwigTest;
+
+class ObjectExtension extends AbstractExtension {
 
   public function getTests() : array {
     return [
-      'instanceof' => new \Twig_SimpleTest('instanceof', array(
+      'instanceof' => new TwigTest('instanceof', array(
         $this,
         'isInstanceOf'
       ))
@@ -15,11 +19,11 @@ class ObjectExtension extends \Twig_Extension {
 
   public function getFunctions() : array {
     return [
-      'classShort' => new \Twig_SimpleFunction('classShort', array(
+      'classShort' => new TwigFunction('classShort', array(
         $this,
         'getClassShort'
       )),
-      'classFull' => new \Twig_SimpleFunction('classFull', array(
+      'classFull' => new TwigFunction('classFull', array(
         $this,
         'getClassFull'
       ))

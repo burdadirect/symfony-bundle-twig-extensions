@@ -2,13 +2,16 @@
 
 namespace HBM\TwigExtensionsBundle\Twig;
 
-class DatetimeExtension extends \Twig_Extension {
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
+
+class DatetimeExtension extends AbstractExtension {
 
   public function getFilters() : array {
     return array(
-      new \Twig_SimpleFilter('datetime_diff', array($this, 'getDatetimeDiff')),
-      new \Twig_SimpleFilter('dateOrDefault', array($this, 'getDateOrDefault')),
-      new \Twig_SimpleFilter('strftimeOrDefault', array($this, 'getStrftimeOrDefault')),
+      new TwigFilter('datetime_diff', array($this, 'getDatetimeDiff')),
+      new TwigFilter('dateOrDefault', array($this, 'getDateOrDefault')),
+      new TwigFilter('strftimeOrDefault', array($this, 'getStrftimeOrDefault')),
     );
   }
 

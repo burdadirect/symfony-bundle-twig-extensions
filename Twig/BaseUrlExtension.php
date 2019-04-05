@@ -2,7 +2,10 @@
 
 namespace HBM\TwigExtensionsBundle\Twig;
 
-class BaseUrlExtension extends \Twig_Extension {
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
+
+class BaseUrlExtension extends AbstractExtension {
 
   /**
    * @var string
@@ -21,8 +24,8 @@ class BaseUrlExtension extends \Twig_Extension {
 
   public function getFilters() : array {
     return array(
-      new \Twig_SimpleFilter('baseurlImages', array($this, 'baseurlImagesFilter')),
-      new \Twig_SimpleFilter('baseurlVideos', array($this, 'baseurlVideosFilter')),
+      new TwigFilter('baseurlImages', array($this, 'baseurlImagesFilter')),
+      new TwigFilter('baseurlVideos', array($this, 'baseurlVideosFilter')),
     );
   }
 

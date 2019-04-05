@@ -2,23 +2,26 @@
 
 namespace HBM\TwigExtensionsBundle\Twig;
 
-class FilterExtension extends \Twig_Extension {
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
+
+class FilterExtension extends AbstractExtension {
 
   public function getFilters() : array {
     return array(
-      new \Twig_SimpleFilter('token', array($this, 'tokenFilter')),
-      new \Twig_SimpleFilter('without', array($this, 'withoutFilter')),
-      new \Twig_SimpleFilter('unique', array($this, 'uniqueFilter')),
-      new \Twig_SimpleFilter('push', array($this, 'pushFilter')),
-      new \Twig_SimpleFilter('pop', array($this, 'popFilter')),
-      new \Twig_SimpleFilter('unshift', array($this, 'unshiftFilter')),
-      new \Twig_SimpleFilter('shift', array($this, 'shiftFilter')),
-      new \Twig_SimpleFilter('appendToKey', array($this, 'appendToKey')),
-      new \Twig_SimpleFilter('cssClasses', array($this, 'cssClasses')),
-      new \Twig_SimpleFilter('decimals', array($this, 'decimalsFilter')),
-      new \Twig_SimpleFilter('bytes', array($this, 'bytesFilter')),
-      new \Twig_SimpleFilter('link', array($this, 'link'), array('is_safe' => array('html'))),
-      new \Twig_SimpleFilter('filterVar', array($this, 'filterVar')),
+      new TwigFilter('token', array($this, 'tokenFilter')),
+      new TwigFilter('without', array($this, 'withoutFilter')),
+      new TwigFilter('unique', array($this, 'uniqueFilter')),
+      new TwigFilter('push', array($this, 'pushFilter')),
+      new TwigFilter('pop', array($this, 'popFilter')),
+      new TwigFilter('unshift', array($this, 'unshiftFilter')),
+      new TwigFilter('shift', array($this, 'shiftFilter')),
+      new TwigFilter('appendToKey', array($this, 'appendToKey')),
+      new TwigFilter('cssClasses', array($this, 'cssClasses')),
+      new TwigFilter('decimals', array($this, 'decimalsFilter')),
+      new TwigFilter('bytes', array($this, 'bytesFilter')),
+      new TwigFilter('link', array($this, 'link'), array('is_safe' => array('html'))),
+      new TwigFilter('filterVar', array($this, 'filterVar')),
     );
   }
 

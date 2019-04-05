@@ -2,15 +2,18 @@
 
 namespace HBM\TwigExtensionsBundle\Twig;
 
-class CastExtension extends \Twig_Extension {
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
+
+class CastExtension extends AbstractExtension {
 
   public function getFilters() : array {
     return [
-      new \Twig_SimpleFilter('castInt', [$this, 'castInt']),
-      new \Twig_SimpleFilter('castFloat', [$this, 'castFloat']),
-      new \Twig_SimpleFilter('castBool', [$this, 'castBool']),
-      new \Twig_SimpleFilter('castArray', [$this, 'castArray']),
-      new \Twig_SimpleFilter('castString', [$this, 'castString']),
+      new TwigFilter('castInt', [$this, 'castInt']),
+      new TwigFilter('castFloat', [$this, 'castFloat']),
+      new TwigFilter('castBool', [$this, 'castBool']),
+      new TwigFilter('castArray', [$this, 'castArray']),
+      new TwigFilter('castString', [$this, 'castString']),
     ];
   }
 
