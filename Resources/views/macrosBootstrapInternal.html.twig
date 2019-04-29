@@ -38,7 +38,7 @@
 
 {% macro dropdownItem(item) %}
   {% import _self as self %}
-  {%- filter spaceless -%}
+  {%- apply spaceless -%}
     {% if item is not bsDropdownItem %}
       {% set item = bsDropdownItem().apply(item) %}
     {% endif %}
@@ -55,5 +55,5 @@
       {% endif %}
       <a {{ attributes.class('dropdown-item')|raw }}>{{- self.icons(item.icons) -}}{{- item.text|raw -}}</a>
     {% endif %}
-  {%- endfilter -%}
+  {%- endapply -%}
 {% endmacro %}
