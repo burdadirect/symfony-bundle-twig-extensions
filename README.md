@@ -3,7 +3,7 @@
 ## Team
 
 ### Developers
-Christian Puchinger - puchinger@playboy.de
+Christian Puchinger - christian.puchinger@playboy.de
 
 ## Installation
 
@@ -22,41 +22,34 @@ of the Composer documentation.
 
 ### Step 2: Enable the Bundle
 
-Then, enable the bundle by adding it to the list of registered bundles
-in the `app/AppKernel.php` file of your project:
+With Symfony 4 the bundle is enabled automatically for all environments (see `config/bundles.php`). 
 
-```php
-<?php
-// app/AppKernel.php
+### Step 3: Configuration
 
-// ...
-class AppKernel extends Kernel
-{
-    public function registerBundles()
-    {
-        $bundles = array(
-            // ...
+```yml
+hbm_twig_extensions:
+  base_url:
+    images:
+    videos:
 
-            new HBM\TwigExtensionsBundle\HBMTwigExtensionsBundle(),
-        );
-
-        // ...
-    }
-
-    // ...
-}
+  responsive_svg:
+    inline: false
+    public_dir:
+    aliases:
+      key1: - { path: path1 }
+      key2: - { path: path2 }
 ```
 
-### Usage
+## Usage
 
-#### Datetime
+### Datetime
 
 ```twig
 {{ datetime|datetime_diff(datetime_to_compare) }}
 {{ datetime|datetime_diff(datetime_to_compare, format) }}
 ```
 
-#### Filter
+### Filter
 
 ```twig
 {{ 'test  test   test'|token }} => ['test', 'test', 'test']
@@ -64,7 +57,7 @@ class AppKernel extends Kernel
 {{ 1048576|bytes(' ') }} => 1024 KB
 ```
 
-#### Object
+### Object
 
 ```twig
 {{ classShort(object) }} => ThisIsTheClassName
@@ -72,14 +65,14 @@ class AppKernel extends Kernel
 {% if object is instanceof('Fully\\Qualiefied\\Path\\ThisIsTheClassName') %} => true|false
 ```
 
-#### String
+### String
 
 ```twig
 {{ uuid() }} => asdfadsfasdfasdf
 {% if someVar is prefixed(['http://', 'https://']) %} => true|false
 ```
 
-#### BaseUrl
+### BaseUrl
 
 ```twig
 {{ imageUrl|baseurlImages }} => http://this.is.the.baseurl/path/to/image.jpg
