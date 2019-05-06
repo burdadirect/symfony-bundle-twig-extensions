@@ -1,7 +1,8 @@
 parameters:
 
 services:
-    _defaults: { public: true }
+    _defaults:
+        public: true
 
     # TWIG
     hbm.twig_extensions.attributes:

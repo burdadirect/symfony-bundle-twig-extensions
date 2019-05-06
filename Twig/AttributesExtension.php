@@ -11,7 +11,7 @@ class AttributesExtension extends AbstractExtension {
 
   public function getTests() : array {
     return [
-      'attributes' => new TwigTest('attributes', array($this, 'isAttributes')),
+      'attributes' => new TwigTest('attributes', [$this, 'isAttributes']),
     ];
   }
 

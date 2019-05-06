@@ -23,10 +23,10 @@ class BaseUrlExtension extends AbstractExtension {
   }
 
   public function getFilters() : array {
-    return array(
-      new TwigFilter('baseurlImages', array($this, 'baseurlImagesFilter')),
-      new TwigFilter('baseurlVideos', array($this, 'baseurlVideosFilter')),
-    );
+    return [
+      new TwigFilter('baseurlImages', [$this, 'baseurlImagesFilter']),
+      new TwigFilter('baseurlVideos', [$this, 'baseurlVideosFilter']),
+    ];
   }
 
   /****************************************************************************/

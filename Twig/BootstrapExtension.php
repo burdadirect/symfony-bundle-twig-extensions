@@ -12,8 +12,8 @@ class BootstrapExtension extends AbstractExtension {
 
   public function getTests() : array {
     return [
-      'bsLink' => new TwigTest('bsLink', array($this, 'isBsLink')),
-      'bsDropdownItem' => new TwigTest('bsDropdownItem', array($this, 'isBsDropdownItem')),
+      'bsLink' => new TwigTest('bsLink', [$this, 'isBsLink']),
+      'bsDropdownItem' => new TwigTest('bsDropdownItem', [$this, 'isBsDropdownItem']),
     ];
   }
 

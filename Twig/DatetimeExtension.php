@@ -8,11 +8,11 @@ use Twig\TwigFilter;
 class DatetimeExtension extends AbstractExtension {
 
   public function getFilters() : array {
-    return array(
-      new TwigFilter('datetime_diff', array($this, 'getDatetimeDiff')),
-      new TwigFilter('dateOrDefault', array($this, 'getDateOrDefault')),
-      new TwigFilter('strftimeOrDefault', array($this, 'getStrftimeOrDefault')),
-    );
+    return [
+      new TwigFilter('datetime_diff', [$this, 'getDatetimeDiff']),
+      new TwigFilter('dateOrDefault', [$this, 'getDateOrDefault']),
+      new TwigFilter('strftimeOrDefault', [$this, 'getStrftimeOrDefault']),
+    ];
   }
 
   /****************************************************************************/
