@@ -1,11 +1,14 @@
-{% macro icons(icons) %}
+{% macro icons(icons, text) %}
   {%- set icons = icons|default([]) -%}
   {%- if icons is string -%}
     {%- set icons = [icons] -%}
   {%- endif -%}
   {%- for icon in icons -%}
-    <span {{ attributes().class(icon).class('fa')|raw }}></span>&nbsp;
+    <span {{ attributes().class(icon).class('fa')|raw }}></span>
   {%- endfor -%}
+  {%- if (icons|length > 0) and text -%}
+    &nbsp;
+  {%- endif -%}
 {% endmacro %}
 
 {# -------------------------------------------------------------------------- #}
@@ -24,7 +27,7 @@
 
   <div {{ attributes(attributesContainer)|raw }}>
     <button {{ attributes|raw }}>
-      <span class="btn-text">{{ self.icons(bsLink.icons) }}{{ bsLink.text|raw }}</span>
+      <span class="btn-text">{{ self.icons(bsLink.icons, bsLink.text) }}{{ bsLink.text|raw }}</span>
     </button>
     <div {{ attributesMenu|raw }}>
 {% for item in items %}
@@ -53,7 +56,7 @@
       {% if attributes.get('disabled') %}
         {% set attributes = attributes.class('disabled').set('aria-disabled', 'true') %}
       {% endif %}
-      <a {{ attributes.class('dropdown-item')|raw }}>{{- self.icons(item.icons) -}}{{- item.text|raw -}}</a>
+      <a {{ attributes.class('dropdown-item')|raw }}>{{- self.icons(item.icons, item.text) -}}{{- item.text|raw -}}</a>
     {% endif %}
   {%- endapply -%}
 {% endmacro %}
