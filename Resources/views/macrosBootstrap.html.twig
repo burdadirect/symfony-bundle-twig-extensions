@@ -1,7 +1,7 @@
 {% macro navItem(bsLink, attributesContainer) %}
 {% import '@HBMTwigExtensions/macrosBootstrapInternal.html.twig' as mbi %}
 <li {{ attributes(attributesContainer).class('nav-item')|raw }}>
-  <a {{ bsLink.attributes.class('nav-link')|raw }}>{{ mbi.icons(bsLink.icons) }}{{ bsLink.text|raw }}</a>
+  <a {{ bsLink.attributes.class('nav-link')|raw }}>{{ mbi.icons(bsLink.icons, bsLink.text) }}{{ bsLink.text|raw }}</a>
 </li>
 {% endmacro %}
 
@@ -9,14 +9,14 @@
 
 {% macro link(bsLink) %}
   {% import '@HBMTwigExtensions/macrosBootstrapInternal.html.twig' as mbi %}
-  <a {{ bsLink.attributes|raw }}><span class="btn-text">{{ mbi.icons(bsLink.icons) }}{{ bsLink.text|raw }}</span></a>
+  <a {{ bsLink.attributes|raw }}><span class="btn-text">{{ mbi.icons(bsLink.icons, bsLink.text) }}{{ bsLink.text|raw }}</span></a>
 {% endmacro %}
 
 {# -------------------------------------------------------------------------- #}
 
 {% macro btn(bsLink) %}
   {% import '@HBMTwigExtensions/macrosBootstrapInternal.html.twig' as mbi %}
-  <a {{ bsLink.attributes.class('btn')|raw }}><span class="btn-text">{{ mbi.icons(bsLink.icons) }}{{ bsLink.text|raw }}</span></a>
+  <a {{ bsLink.attributes.class('btn')|raw }}><span class="btn-text">{{ mbi.icons(bsLink.icons, bsLink.text) }}{{ bsLink.text|raw }}</span></a>
 {% endmacro %}
 
 {% macro btn1(bsLink) %}
@@ -33,7 +33,7 @@
 
 {% macro button(bsLink) %}
   {% import '@HBMTwigExtensions/macrosBootstrapInternal.html.twig' as mbi %}
-  <button {{ bsLink.attributes.class('btn')|raw }}><span class="btn-text">{{ mbi.icons(bsLink.icons) }}{{ bsLink.text|raw }}</span></button>
+  <button {{ bsLink.attributes.class('btn')|raw }}><span class="btn-text">{{ mbi.icons(bsLink.icons, bsLink.text) }}{{ bsLink.text|raw }}</span></button>
 {% endmacro %}
 
 {# -------------------------------------------------------------------------- #}
