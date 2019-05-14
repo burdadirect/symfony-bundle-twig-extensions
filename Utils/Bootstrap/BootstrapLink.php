@@ -30,7 +30,6 @@ class BootstrapLink {
   private $attributes;
 
   public function __construct($text = NULL, array $config = []) {
-    var_dump($config);
     $this->config = $config;
     $this->text = $text;
     $this->attributes = new HtmlAttributes();
