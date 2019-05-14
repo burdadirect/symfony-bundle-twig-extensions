@@ -28,6 +28,10 @@ With Symfony 4 the bundle is enabled automatically for all environments (see `co
 
 ```yml
 hbm_twig_extensions:
+  bootstrap:
+    fontawesome:
+      default_class: 'fas'
+
   base_url:
     images:
     videos:

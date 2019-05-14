@@ -10,6 +10,11 @@ class BootstrapLink {
   use HtmlAttributesTrait;
 
   /**
+   * @var array
+   */
+  protected $config;
+
+  /**
    * @var string[]
    */
   private $icons = [];
@@ -24,7 +29,9 @@ class BootstrapLink {
    */
   private $attributes;
 
-  public function __construct($text = NULL) {
+  public function __construct($text = NULL, array $config = []) {
+    var_dump($config);
+    $this->config = $config;
     $this->text = $text;
     $this->attributes = new HtmlAttributes();
   }
@@ -46,15 +53,15 @@ class BootstrapLink {
   /****************************************************************************/
 
   public function icon() {
-    return $this->icons(...\func_get_args());
+    return $this->icons(...func_get_args());
   }
 
   public function icons() {
-    if (\func_num_args() === 0) {
+    if (func_num_args() === 0) {
       return $this->getIcons();
     }
 
-    $this->addIcons(...\func_get_args());
+    $this->addIcons(...func_get_args());
 
     return $this;
   }
@@ -64,12 +71,16 @@ class BootstrapLink {
   }
 
   public function addIcons($icons) : self {
-    if (!\is_array($icons)) {
+    if (!is_array($icons)) {
       $icons = [$icons];
     }
 
     foreach ($icons as $icon) {
-      $this->icons[] = $icon;
+      $iconParts = explode(' ', $icon);
+      if (count(array_intersect($iconParts, ['fa', 'fas', 'far', 'fal', 'fab'])) === 0) {
+        $iconParts[] = $this->config['fontawesome']['default_class'] ?? 'fas';
+      }
+      $this->icons[] = implode(' ', $iconParts);
     }
 
     return $this;
@@ -79,7 +90,7 @@ class BootstrapLink {
     if ($icons === NULL) {
       $this->icons = [];
     } else {
-      if (!\is_array($icons)) {
+      if (!is_array($icons)) {
         $icons = [$icons];
       }
       $this->icons = $icons;
@@ -99,11 +110,11 @@ class BootstrapLink {
   /****************************************************************************/
 
   public function text() {
-    if (\func_num_args() === 0) {
+    if (func_num_args() === 0) {
       return $this->getText();
     }
 
-    foreach (\func_get_args() as $text) {
+    foreach (func_get_args() as $text) {
       $this->addText($text);
     }
 
@@ -135,11 +146,11 @@ class BootstrapLink {
   }
 
   public function attributes() {
-    if (\func_num_args() === 0) {
+    if (func_num_args() === 0) {
       return $this->attributes;
     }
 
-    if (\func_num_args() === 1) {
+    if (func_num_args() === 1) {
       $this->setAttributes(new HtmlAttributes(func_get_arg(0)));
     }
 

@@ -10,6 +10,15 @@ use Twig\TwigTest;
 
 class BootstrapExtension extends AbstractExtension {
 
+  /**
+   * @var array
+   */
+  protected $config;
+
+  public function __construct($config) {
+    $this->config = $config;
+  }
+
   public function getTests() : array {
     return [
       'bsLink' => new TwigTest('bsLink', [$this, 'isBsLink']),
@@ -33,7 +42,7 @@ class BootstrapExtension extends AbstractExtension {
    * @return BootstrapLink
    */
   public function bsLink($text = NULL) : BootstrapLink {
-    return new BootstrapLink($text);
+    return new BootstrapLink($text, $this->config);
   }
 
   /**
@@ -41,7 +50,7 @@ class BootstrapExtension extends AbstractExtension {
    * @return BootstrapDropdownItem
    */
   public function bsDropdownItem($text = NULL) : BootstrapDropdownItem {
-    return new BootstrapDropdownItem($text);
+    return new BootstrapDropdownItem($text, $this->config);
   }
 
   /****************************************************************************/

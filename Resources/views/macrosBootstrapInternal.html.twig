@@ -4,7 +4,7 @@
     {%- set icons = [icons] -%}
   {%- endif -%}
   {%- for icon in icons -%}
-    <span {{ attributes().class(icon).class('fa')|raw }}></span>
+    <span {{ attributes().class(icon)|raw }}></span>
   {%- endfor -%}
   {%- if (icons|length > 0) and text -%}
     &nbsp;

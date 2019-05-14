@@ -25,6 +25,7 @@ class HBMTwigExtensionsExtension extends Extension {
 
     $container->setParameter('hbm.twig_extensions.base_url', $configToUse['base_url']);
     $container->setParameter('hbm.twig_extensions.responsive_svg', $configToUse['responsive_svg']);
+    $container->setParameter('hbm.twig_extensions.bootstrap', $configToUse['bootstrap']);
 
     $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
     $loader->load('services.yml');

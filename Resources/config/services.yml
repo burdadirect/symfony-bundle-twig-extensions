@@ -12,6 +12,7 @@ services:
 
     hbm.twig_extensions.bootsrap:
         class: HBM\TwigExtensionsBundle\Twig\BootstrapExtension
+        arguments: ['%hbm.twig_extensions.bootstrap%']
         tags:
             - { name: twig.extension }
 
@@ -42,12 +43,12 @@ services:
 
     hbm.twig_extensions.baseurl:
         class: HBM\TwigExtensionsBundle\Twig\BaseUrlExtension
-        arguments: ["%hbm.twig_extensions.base_url%"]
+        arguments: ['%hbm.twig_extensions.base_url%']
         tags:
             - { name: twig.extension }
 
     hbm.twig_extension.responsive_svg:
         class: HBM\TwigExtensionsBundle\Twig\ResponsiveSvgExtension
-        arguments: ["@kernel", "%hbm.twig_extensions.responsive_svg%", "@logger"]
+        arguments: ['@kernel', '%hbm.twig_extensions.responsive_svg%', '@logger']
         tags:
             - { name: twig.extension }
