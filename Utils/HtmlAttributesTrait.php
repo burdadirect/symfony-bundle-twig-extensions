@@ -9,16 +9,16 @@ trait HtmlAttributesTrait {
   }
 
   public function class() {
-    if (\func_num_args() === 0) {
+    if (func_num_args() === 0) {
       return $this->getAttributesObject()->getClasses();
     }
 
-    if ((\func_num_args() === 2) && \is_bool(func_get_arg(1))) {
+    if ((func_num_args() === 2) && is_bool(func_get_arg(1))) {
       if (func_get_arg(1) === TRUE) {
         $this->getAttributesObject()->addClasses(func_get_arg(0));
       }
     } else {
-      foreach (\func_get_args() as $classes) {
+      foreach (func_get_args() as $classes) {
         $this->getAttributesObject()->addClasses($classes);
       }
     }
@@ -27,13 +27,13 @@ trait HtmlAttributesTrait {
   }
 
   public function href() {
-    if (\func_num_args() === 0) {
+    if (func_num_args() === 0) {
       return $this->getAttributesObject()->get('href');
     }
 
-    if (\func_num_args() === 1) {
+    if (func_num_args() === 1) {
       $this->getAttributesObject()->set('href', func_get_arg(0));
-    } elseif (\func_num_args() === 2) {
+    } elseif (func_num_args() === 2) {
       $this->getAttributesObject()->set('href', func_get_arg(0));
       $this->getAttributesObject()->set('target', func_get_arg(1));
     }
@@ -42,7 +42,7 @@ trait HtmlAttributesTrait {
   }
 
   public function title() {
-    if (\func_num_args() === 0) {
+    if (func_num_args() === 0) {
       return $this->getAttributesObject()->get('title');
     }
 
@@ -52,7 +52,7 @@ trait HtmlAttributesTrait {
   }
 
   public function target() {
-    if (\func_num_args() === 0) {
+    if (func_num_args() === 0) {
       return $this->getAttributesObject()->get('target');
     }
 
@@ -62,7 +62,7 @@ trait HtmlAttributesTrait {
   }
 
   public function onclick() {
-    if (\func_num_args() === 0) {
+    if (func_num_args() === 0) {
       return $this->getAttributesObject()->get('onclick');
     }
 
@@ -72,7 +72,7 @@ trait HtmlAttributesTrait {
   }
 
   public function id() {
-    if (\func_num_args() === 0) {
+    if (func_num_args() === 0) {
       return $this->getAttributesObject()->get('id');
     }
 
@@ -82,7 +82,7 @@ trait HtmlAttributesTrait {
   }
 
   public function disabled() {
-    if (\func_num_args() === 0) {
+    if (func_num_args() === 0) {
       return $this->getAttributesObject()->get('disabled');
     }
 

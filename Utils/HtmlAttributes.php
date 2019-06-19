@@ -25,22 +25,21 @@ class HtmlAttributes {
    * HtmlAttributes constructor.
    *
    * @param mixed $attributes
+   * @param bool $onlyIfNotEmpty
    */
-  public function __construct($attributes = NULL) {
+  public function __construct($attributes = NULL, $onlyIfNotEmpty = FALSE) {
     if ($attributes instanceof self) {
       $this->classes = $attributes->getClasses();
       $this->attributes = $attributes->getAttributes();
-    } elseif (\is_array($attributes)) {
-      foreach ($attributes as $key => $value) {
-        $this->set($key, $value);
-      }
+    } elseif (is_array($attributes)) {
+      $this->add($attributes, $onlyIfNotEmpty);
     }
   }
 
   /**
    * Returns a copy of the html attributes.
    *
-   * @return HtmlAttributes
+   * @return self
    */
   public function copy() : self {
     $copy = new HtmlAttributes();
@@ -54,9 +53,10 @@ class HtmlAttributes {
 
   /**
    * @param string[] $classes
-   * @return $this
+   *
+   * @return self
    */
-  public function setClasses($classes) {
+  public function setClasses($classes) : self {
     $this->classes = $classes;
 
     return $this;
@@ -65,15 +65,16 @@ class HtmlAttributes {
   /**
    * @return string[]
    */
-  public function getClasses() {
+  public function getClasses() : array {
     return $this->classes;
   }
 
   /**
    * @param string[] $attributes
-   * @return $this
+   *
+   * @return self
    */
-  public function setAttributes($attributes) {
+  public function setAttributes($attributes) : self {
     $this->attributes = $attributes;
 
     return $this;
@@ -82,8 +83,18 @@ class HtmlAttributes {
   /**
    * @return array
    */
-  public function getAttributes() {
+  public function getAttributes() : array {
     return $this->attributes;
+  }
+
+
+  /**
+   * Returns all attribute keys.
+   *
+   * @return array
+   */
+  public function keys() : array {
+    return array_keys($this->attributes);
   }
 
   /****************************************************************************/
@@ -91,14 +102,17 @@ class HtmlAttributes {
   /**
    * Sets multiple html attributes.
    *
-   * @param $attributes
+   * @param mixed $attributes
+   * @param bool $onlyIfNotEmpty
    *
    * @return self
    */
-  public function add($attributes) {
-    if (\is_array($attributes)) {
+  public function add($attributes, $onlyIfNotEmpty = FALSE) : self {
+    if (is_array($attributes)) {
       foreach ($attributes as $key => $value) {
-        $this->set($key, $value);
+        if (!$onlyIfNotEmpty || $value) {
+          $this->set($key, $value);
+        }
       }
     }
 
@@ -126,12 +140,17 @@ class HtmlAttributes {
   /**
    * Sets an html attribute.
    *
-   * @param $key
+   * @param array|string $keys
    *
    * @return self
    */
-  public function unset($key) : self {
-    unset($this->attributes[$key]);
+  public function unset($keys) : self {
+    if (!is_array($keys)) {
+      $keys = [$keys];
+    }
+    foreach ($keys as $key) {
+      unset($this->attributes[$key]);
+    }
 
     return $this;
   }
@@ -153,11 +172,27 @@ class HtmlAttributes {
   }
 
   /**
+   * Sets an html attribute if the value is not null or empty.
+   *
+   * @param $key
+   * @param $value
+   *
+   * @return self
+   */
+  public function setIfNotEmpty($key, $value) : self {
+    if ($value) {
+      return $this->set($key, $value);
+    }
+
+    return $this;
+  }
+
+  /**
    * Gets an html attribute.
    *
    * @param $key
    *
-   * @return mixed|null|\string[]
+   * @return mixed|null|string[]
    */
   public function get($key) {
     if ($key === 'class') {
@@ -170,7 +205,7 @@ class HtmlAttributes {
   /****************************************************************************/
 
   public function addClasses($classes) : self {
-    if (!\is_array($classes)) {
+    if (!is_array($classes)) {
       $classes = explode(' ', $classes);
     }
 
@@ -188,12 +223,12 @@ class HtmlAttributes {
   public function __toString() {
     try {
       $attributes = [];
-      if (\count($this->classes) > 0) {
+      if (count($this->classes) > 0) {
         $attributes[] = 'class="'.implode(' ', array_diff($this->classes, [''])).'"';
       }
 
       foreach ($this->attributes as $key => $value) {
-        if (\in_array($key, self::$standalone, TRUE)) {
+        if (in_array($key, self::$standalone, TRUE)) {
           if ($value) {
             $attributes[] = $key.'="'.$key.'"';
           }
