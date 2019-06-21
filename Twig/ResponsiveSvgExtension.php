@@ -145,7 +145,7 @@ class ResponsiveSvgExtension extends AbstractExtension {
     $wrapper->setAttribute('style', 'position: relative;');
 
     $filler = $dom->createElement('div');
-    $filler->setAttribute('style', 'width: 100%; height: 0; overflow-hidden; padding-bottom: ' . $padding . '%');
+    $filler->setAttribute('style', 'width: 100%; height: 0; overflow: hidden; padding-bottom: ' . $padding . '%');
     $wrapper->appendChild($filler);
 
     if ($identifier !== '') {
