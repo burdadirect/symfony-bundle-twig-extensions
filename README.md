@@ -13,7 +13,7 @@ Open a command console, enter your project directory and execute the
 following command to download the latest stable version of this bundle:
 
 ```bash
-$ composer require burdanews/twig-extensions-bundle
+$ composer require burdanews/symfony-bundle-twig-extensions
 ```
 
 This command requires you to have Composer installed globally, as explained
@@ -28,10 +28,6 @@ With Symfony 4 the bundle is enabled automatically for all environments (see `co
 
 ```yml
 hbm_twig_extensions:
-  bootstrap:
-    fontawesome:
-      default_class: 'fas'
-
   base_url:
     images:
     videos:
@@ -66,7 +62,7 @@ hbm_twig_extensions:
 ```twig
 {{ classShort(object) }} => ThisIsTheClassName
 {{ classFull(object) }} => Fully\Qualiefied\Path\ThisIsTheClassName
-{% if object is instanceof('Fully\\Qualiefied\\Path\\ThisIsTheClassName') %} => true|false
+{% if object is instanceof('Fully\\Qualified\\Path\\ThisIsTheClassName') %} => true|false
 ```
 
 ### String
