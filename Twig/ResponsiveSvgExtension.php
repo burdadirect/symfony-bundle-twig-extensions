@@ -134,8 +134,6 @@ class ResponsiveSvgExtension extends AbstractExtension {
       $height = $config['height'];
     }
 
-    $padding = round($height / $width * 100, 5);
-
     $classes = array_merge(['responsive-svg'], explode(' ', $config['class']));
 
     $dom = new \DOMDocument();
@@ -145,12 +143,12 @@ class ResponsiveSvgExtension extends AbstractExtension {
     $wrapper->setAttribute('style', 'position: relative;');
 
     $filler = $dom->createElement('div');
-    $filler->setAttribute('style', 'width: 100%; height: 0; overflow: hidden; padding-bottom: ' . $padding . '%');
+    $filler->setAttribute('style', 'width: 100%; height: 0; overflow: hidden; padding-bottom: ' . number_format($height / $width * 100, 5) . '%');
     $wrapper->appendChild($filler);
 
     if ($identifier !== '') {
       $svg = $dom->createElement('svg');
-      $svg->setAttribute('viewBox', '0 0 ' . $width . ' ' . $height);
+      $svg->setAttribute('viewBox', '0 0 ' . number_format($width, 5) . ' ' . number_format($height, 5));
 
       $use = $dom->createElement('use');
       $use->setAttribute('xlink:href', $href);
