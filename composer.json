@@ -20,7 +20,6 @@
     "symfony/dependency-injection": "^3.4|^4.4",
     "symfony/dom-crawler": "^3.4|^4.4",
     "symfony/http-kernel": "^3.4|^4.4",
-    "symfony/monolog-bridge": "^3.4|^4.4",
     "symfony/twig-bundle": "^3.4|^4.4"
 
   },
