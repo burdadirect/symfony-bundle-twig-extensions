@@ -33,7 +33,7 @@ services:
 
     hbm.twig_extension.responsive_svg:
         class: HBM\TwigExtensionsBundle\Twig\ResponsiveSvgExtension
-        arguments: ['@kernel', '%hbm.twig_extensions.responsive_svg%', '@logger']
+        arguments: ['%hbm.twig_extensions.responsive_svg%', '@logger']
         tags:
             - { name: twig.extension }
 

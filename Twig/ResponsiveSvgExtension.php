@@ -2,29 +2,38 @@
 
 namespace HBM\TwigExtensionsBundle\Twig;
 
-use Symfony\Bridge\Monolog\Logger;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\DomCrawler\Crawler;
-use Symfony\Component\HttpKernel\Kernel;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 
 class ResponsiveSvgExtension extends AbstractExtension {
 
-  /** @var Kernel */
-  private $kernel;
-
-  /** @var Logger */
-  private $logger;
-
+  /**
+   * @var
+   */
   private $config;
 
-  public function __construct(Kernel $kernel, $config, Logger $logger)
+  /**
+   * @var LoggerInterface
+   */
+  private $logger;
+
+  /**
+   * ResponsiveSvgExtension constructor.
+   *
+   * @param $config
+   * @param LoggerInterface $logger
+   */
+  public function __construct($config, LoggerInterface $logger)
   {
-    $this->kernel = $kernel;
     $this->config = $config;
     $this->logger = $logger;
   }
 
+  /**
+   * @return array|TwigFilter[]
+   */
   public function getFilters() : array {
     return [
       new TwigFilter('responsiveSVG', [$this, 'generateResponsiveSvg'], ['is_safe' => ['html']]),
@@ -36,16 +45,26 @@ class ResponsiveSvgExtension extends AbstractExtension {
   /* FILTERS                                                                  */
   /****************************************************************************/
 
-  private function resolvePath($file) {
+  /**
+   * @param $file
+   *
+   * @return string
+   */
+  private function resolvePath($file) : string {
     if (isset($this->config['aliases'][$file]['path'])) {
       $path = $this->config['aliases'][$file]['path'];
-      return $this->kernel->getProjectDir().'/'.$this->config['public_dir'].'/'.$path;
+      return $this->config['public_dir'].'/'.$path;
     }
 
     return $file;
   }
 
-  private function resolveUrl($file) {
+  /**
+   * @param $file
+   *
+   * @return string
+   */
+  private function resolveUrl($file) : string {
     if (isset($this->config['aliases'][$file]['path'])) {
       return '/'.$this->config['aliases'][$file]['path'];
     }
@@ -53,12 +72,21 @@ class ResponsiveSvgExtension extends AbstractExtension {
     return $file;
   }
 
-  private function loadContent($path) {
-    return file_get_contents($path);
+  /**
+   * @param $path
+   *
+   * @return string|null
+   */
+  private function loadContent($path) : ?string {
+    return file_get_contents($path) ?: NULL;
   }
 
-  public function generateResponsiveSourceSvg($uri)
-  {
+  /**
+   * @param $uri
+   *
+   * @return string
+   */
+  public function generateResponsiveSourceSvg($uri) : string {
     $pathResolved = $this->resolvePath($uri);
     $svgContent = $this->loadContent($pathResolved);
 
@@ -71,8 +99,13 @@ class ResponsiveSvgExtension extends AbstractExtension {
     return str_replace(array_keys($searchReplace), array_values($searchReplace), $svgContent);
   }
 
-  public function generateResponsiveSvg($uri, array $config = []) : string
-  {
+  /**
+   * @param $uri
+   * @param array $config
+   *
+   * @return string
+   */
+  public function generateResponsiveSvg($uri, array $config = []) : string {
     $default = [
       'offsetX' => 0,
       'offsetY' => 0,
