@@ -173,10 +173,10 @@ class ResponsiveSvgExtension extends AbstractExtension {
 
     $wrapper = $dom->createElement('div');
     $wrapper->setAttribute('class', implode(' ', $classes));
-    $wrapper->setAttribute('style', 'position: relative;');
+    $wrapper->setAttribute('style', $this->config['styles']['wrapper']);
 
     $filler = $dom->createElement('div');
-    $filler->setAttribute('style', 'width: 100%; height: 0; overflow: hidden; padding-bottom: ' . number_format($height / $width * 100, 5) . '%');
+    $filler->setAttribute('style', $this->config['styles']['filler'].' padding-bottom: ' . number_format($height / $width * 100, 5) . '%');
     $wrapper->appendChild($filler);
 
     if ($identifier !== '') {
@@ -192,7 +192,7 @@ class ResponsiveSvgExtension extends AbstractExtension {
       $svg->setAttribute('data', $href);
     }
 
-    $svg->setAttribute('style', 'position: absolute; top: 0; bottom: 0; left: 0; right: 0;');
+    $svg->setAttribute('style', $this->config['styles']['svg']);
 
     $wrapper->appendChild($svg);
     $dom->appendChild($wrapper);
