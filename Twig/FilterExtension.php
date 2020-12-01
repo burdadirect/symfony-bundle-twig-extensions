@@ -2,6 +2,7 @@
 
 namespace HBM\TwigExtensionsBundle\Twig;
 
+use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 
@@ -22,6 +23,7 @@ class FilterExtension extends AbstractExtension {
       new TwigFilter('bytes', [$this, 'bytesFilter']),
       new TwigFilter('link', [$this, 'link'], ['is_safe' => ['html']]),
       new TwigFilter('filterVar', [$this, 'filterVar']),
+      new TwigFilter('applyFilters', [$this, 'appyFilters'], ['needs_environment' => true, 'is_safe' => ['html']]),
     ];
   }
 
@@ -166,6 +168,57 @@ class FilterExtension extends AbstractExtension {
 
       return '<a href="'.$matches[0].'" target="_blank" title="'.sprintf($title, $matches[0]).'">'.sprintf($text, $matches[0]).'</a>';
     }, $string);
+  }
+
+  /**
+   * @param Environment $environment
+   * @param mixed $var
+   * @param array|string $filters
+   *
+   * @return string
+   */
+  public function appyFilters(Environment $environment, $var, $filters = []) {
+    if (is_string($filters)) {
+      $filters = [$filters];
+    }
+
+    if (count($filters) > 0) {
+      $templateParamsArrays = [];
+      $templateParamsArrays[] = ['var' => $var];
+
+      $templateString = 'var';
+      foreach ($filters as $filterIndex => $filterData) {
+        // Determine filter name and params.
+        if (is_array($filterData)) {
+          $filterName = $filterData[0] ?? NULL;
+          $filterParams = $filterData[1] ?? [];
+        } else {
+          $filterName = $filterData;
+          $filterParams = [];
+        }
+
+        // Generate filter params string if necessary.
+        $filterParamsString = '';
+        if (count($filterParams) > 0) {
+
+          $namedFilterParams = [];
+          foreach ($filterParams as $filterParamIndex => $filterParamValue) {
+            $namedFilterParams['filter_param_'.$filterIndex.'_'.$filterParamIndex] = $filterParamValue;
+          }
+          $templateParamsArrays[] = $namedFilterParams;
+
+          $filterParamsString = '('.implode(', ', array_keys($namedFilterParams)).')';
+        }
+
+        // Apply filter to variable (or preceding filters).
+        $templateString .= '|'.$filterName.$filterParamsString;
+      }
+
+      $template = $environment->createTemplate('{{ '.$templateString.' }}');
+      return $template->render(array_merge(...$templateParamsArrays));
+    }
+
+    return $var;
   }
 
 }
