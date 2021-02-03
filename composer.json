@@ -1,5 +1,5 @@
 {
-  "name": "burdanews/symfony-bundle-twig-extensions",
+  "name": "burdadirect/symfony-bundle-twig-extensions",
   "description": "HBM Twig Extensions Bundle - Datetime, Object, String helper for twig.",
   "authors" : [{
     "name" : "Christian Puchinger",
