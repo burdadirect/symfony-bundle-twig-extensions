@@ -13,7 +13,7 @@
     }
   },
   "require": {
-    "php": "^7.4.1",
+    "php": "^7.4.0",
     "ext-dom": "*",
     "ext-mbstring": "*",
     "symfony/config": "^4.4|^5.2",
