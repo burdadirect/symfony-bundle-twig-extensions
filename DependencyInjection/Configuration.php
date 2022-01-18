@@ -15,8 +15,7 @@ class Configuration implements ConfigurationInterface
   /**
    * {@inheritdoc}
    */
-  public function getConfigTreeBuilder()
-  {
+  public function getConfigTreeBuilder(): TreeBuilder {
     $treeBuilder = new TreeBuilder('hbm_twig_extensions');
     $rootNode = $treeBuilder->getRootNode();
 
