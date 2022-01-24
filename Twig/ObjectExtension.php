@@ -8,6 +8,10 @@ use Twig\TwigTest;
 
 class ObjectExtension extends AbstractExtension {
 
+  /****************************************************************************/
+  /* DEFINITIONS                                                              */
+  /****************************************************************************/
+
   public function getTests() : array {
     return [
       'instanceof' => new TwigTest('instanceof', [$this, 'isInstanceOf'])

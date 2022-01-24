@@ -31,6 +31,10 @@ class ResponsiveSvgExtension extends AbstractExtension {
     $this->logger = $logger;
   }
 
+  /****************************************************************************/
+  /* DEFINITIONS                                                              */
+  /****************************************************************************/
+
   /**
    * @return array|TwigFilter[]
    */

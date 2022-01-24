@@ -2,10 +2,12 @@
 
 namespace HBM\TwigExtensionsBundle\Twig;
 
+use Twig\Environment;
 use Twig\Extension\AbstractExtension;
+use Twig\Markup;
 use Twig\TwigFilter;
 
-class ArrayExtension extends AbstractExtension {
+class RawExtension extends AbstractExtension {
 
   /****************************************************************************/
   /* DEFINITIONS                                                              */
@@ -13,7 +15,7 @@ class ArrayExtension extends AbstractExtension {
 
   public function getFilters() : array {
     return [
-      new TwigFilter('hbmEnumeration', [$this, 'hbmEnumeration']),
+      'hbmRaw' => new TwigFilter('hbmRaw', [$this, 'hbmRaw'], ['needs_environment' => true]),
     ];
   }
 
@@ -21,22 +23,19 @@ class ArrayExtension extends AbstractExtension {
   /* FILTERS                                                                  */
   /****************************************************************************/
 
-  public function hbmEnumeration($vars, $sep = ', ', $sepLast = ' und ', $empty = '') : string {
-    if (\count($vars) === 0) {
-      return $empty;
+  /**
+   * @param Environment $environment
+   * @param mixed $var
+   * @param mixed $outputRaw
+   *
+   * @return Markup
+   */
+  public function hbmRaw(Environment $environment, $var, $outputRaw = true) {
+    if ($outputRaw) {
+      return new Markup($var, $environment->getCharset());
     }
 
-    $last = array_pop($vars);
-
-    $string = implode($sep, $vars);
-    if ($string && $last) {
-      $string .= $sepLast;
-    }
-    if ($last) {
-      $string .= $last;
-    }
-
-    return $string;
+    return $var;
   }
 
 }

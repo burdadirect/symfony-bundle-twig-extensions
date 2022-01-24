@@ -7,6 +7,10 @@ use Twig\TwigFilter;
 
 class CastExtension extends AbstractExtension {
 
+  /****************************************************************************/
+  /* DEFINITIONS                                                              */
+  /****************************************************************************/
+
   public function getFilters() : array {
     return [
       new TwigFilter('castInt', [$this, 'castInt']),

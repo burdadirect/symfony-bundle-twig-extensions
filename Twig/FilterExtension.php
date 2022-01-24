@@ -8,6 +8,10 @@ use Twig\TwigFilter;
 
 class FilterExtension extends AbstractExtension {
 
+  /****************************************************************************/
+  /* DEFINITIONS                                                              */
+  /****************************************************************************/
+
   public function getFilters() : array {
     return [
       new TwigFilter('token', [$this, 'tokenFilter']),

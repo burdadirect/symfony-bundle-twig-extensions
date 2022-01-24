@@ -22,6 +22,10 @@ class BaseUrlExtension extends AbstractExtension {
     $this->base_url_videos = $base_url_config['videos'];
   }
 
+  /****************************************************************************/
+  /* DEFINITIONS                                                              */
+  /****************************************************************************/
+
   public function getFilters() : array {
     return [
       new TwigFilter('baseurlImages', [$this, 'baseurlImagesFilter']),
