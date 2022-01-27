@@ -30,7 +30,7 @@ class MailtoExtension extends AbstractExtension {
   /****************************************************************************/
 
   private function mailtoEncode(string $var): string {
-    return str_replace("\n", '%0D%0A', htmlentities($var));
+    return str_replace("\n", '%0D%0A', rawurlencode($var));
   }
 
   /****************************************************************************/
