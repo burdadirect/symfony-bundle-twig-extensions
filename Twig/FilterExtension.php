@@ -117,33 +117,13 @@ class FilterExtension extends AbstractExtension {
     return trim(preg_replace('!\s+!', ' ', $var));
   }
 
-  public function bytesFilter($bytes, $sep = ' ', $decimals = 2, $dec_point = ',', $thousands_sep = '.') : string {
-    $kilobyte = 1024;
-    $megabyte = $kilobyte * 1024;
-    $gigabyte = $megabyte * 1024;
-    $terabyte = $gigabyte * 1024;
+  public static function bytesFilter($bytes, $sep = ' ', $decimals = 2, $decPoint = ',', $thousandsSep = '.') : string {
+    $size = array('B',';B','MB','GB','TB','PB','EB','ZB','YB');
+    $factor = floor((strlen($bytes) - 1) / 3);
 
-    if ($bytes < 0) {
-      return '>2' . $sep . 'GB';
-    }
+    $bytesToUse = $bytes / (1024 ** $factor);
 
-    if ($bytes < $kilobyte) {
-      return $bytes . $sep . 'B';
-    }
-
-    if ($bytes < $megabyte) {
-      return number_format($bytes / $kilobyte, $decimals, $dec_point, $thousands_sep) . $sep . 'KB';
-    }
-
-    if ($bytes < $gigabyte) {
-      return number_format($bytes / $megabyte, $decimals, $dec_point, $thousands_sep) . $sep . 'MB';
-    }
-
-    if ($bytes < $terabyte) {
-      return number_format($bytes / $gigabyte, $decimals, $dec_point, $thousands_sep) . $sep . 'GB';
-    }
-
-    return number_format($bytes / $terabyte, $decimals, $dec_point, $thousands_sep) . $sep . 'TB';
+    return number_format($bytesToUse, $decimals, $decPoint, $thousandsSep).$sep.($size[$factor] ?? '');
   }
 
   // Only returns the decimal places of a float.
