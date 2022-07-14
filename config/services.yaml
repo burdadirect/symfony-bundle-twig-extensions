@@ -6,10 +6,10 @@ services:
 
     # TWIG
     HBM\TwigExtensionsBundle\Twig\:
-        resource: '../../Twig/*'
+        resource: '../Twig/*'
         exclude:
-            - '../../Twig/BaseUrlExtension.php'
-            - '../../Twig/ResponsiveSvgExtension.php'
+            - '../Twig/BaseUrlExtension.php'
+            - '../Twig/ResponsiveSvgExtension.php'
         tags:
             - { name: twig.extension }
 
