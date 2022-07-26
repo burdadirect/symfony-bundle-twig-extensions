@@ -118,7 +118,7 @@ class FilterExtension extends AbstractExtension {
   }
 
   public static function bytesFilter($bytes, $sep = ' ', $decimals = 2, $decPoint = ',', $thousandsSep = '.') : string {
-    $size = array('B',';B','MB','GB','TB','PB','EB','ZB','YB');
+    $size = array('B','KB','MB','GB','TB','PB','EB','ZB','YB');
     $factor = floor((strlen($bytes) - 1) / 3);
 
     $bytesToUse = $bytes / (1024 ** $factor);
