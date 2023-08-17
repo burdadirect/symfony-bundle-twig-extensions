@@ -14,20 +14,20 @@ class FilterExtension extends AbstractExtension {
 
   public function getFilters() : array {
     return [
-      new TwigFilter('token', [$this, 'tokenFilter']),
-      new TwigFilter('without', [$this, 'withoutFilter']),
-      new TwigFilter('unique', [$this, 'uniqueFilter']),
-      new TwigFilter('push', [$this, 'pushFilter']),
-      new TwigFilter('pop', [$this, 'popFilter']),
-      new TwigFilter('unshift', [$this, 'unshiftFilter']),
-      new TwigFilter('shift', [$this, 'shiftFilter']),
-      new TwigFilter('appendToKey', [$this, 'appendToKey']),
-      new TwigFilter('cssClasses', [$this, 'cssClasses']),
-      new TwigFilter('decimals', [$this, 'decimalsFilter']),
-      new TwigFilter('bytes', [$this, 'bytesFilter']),
-      new TwigFilter('link', [$this, 'link'], ['is_safe' => ['html']]),
-      new TwigFilter('filterVar', [$this, 'filterVar']),
-      new TwigFilter('applyFilters', [$this, 'appyFilters'], ['needs_environment' => true, 'is_safe' => ['html']]),
+      new TwigFilter('token', $this->tokenFilter(...)),
+      new TwigFilter('without', $this->withoutFilter(...)),
+      new TwigFilter('unique', $this->uniqueFilter(...)),
+      new TwigFilter('push', $this->pushFilter(...)),
+      new TwigFilter('pop', $this->popFilter(...)),
+      new TwigFilter('unshift', $this->unshiftFilter(...)),
+      new TwigFilter('shift', $this->shiftFilter(...)),
+      new TwigFilter('appendToKey', $this->appendToKey(...)),
+      new TwigFilter('cssClasses', $this->cssClasses(...)),
+      new TwigFilter('decimals', $this->decimalsFilter(...)),
+      new TwigFilter('bytes', $this->bytesFilter(...)),
+      new TwigFilter('link', $this->link(...), ['is_safe' => ['html']]),
+      new TwigFilter('filterVar', $this->filterVar(...)),
+      new TwigFilter('applyFilters', $this->appyFilters(...), ['needs_environment' => true, 'is_safe' => ['html']]),
     ];
   }
 

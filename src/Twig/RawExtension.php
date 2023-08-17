@@ -15,7 +15,7 @@ class RawExtension extends AbstractExtension {
 
   public function getFilters() : array {
     return [
-      'hbmRaw' => new TwigFilter('hbmRaw', [$this, 'hbmRaw'], ['needs_environment' => true]),
+      'hbmRaw' => new TwigFilter('hbmRaw', $this->hbmRaw(...), ['needs_environment' => true]),
     ];
   }
 

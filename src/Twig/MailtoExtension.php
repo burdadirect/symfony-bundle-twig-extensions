@@ -15,13 +15,13 @@ class MailtoExtension extends AbstractExtension {
 
   public function getFilters() : array {
     return [
-      new TwigFilter('mailto', [$this, 'mailtoFilter']),
+      new TwigFilter('mailto', $this->mailtoFilter(...)),
     ];
   }
 
   public function getFunctions() : array {
     return [
-      new TwigFunction('mailto', [$this, 'mailtoFunction']),
+      new TwigFunction('mailto', $this->mailtoFunction(...)),
     ];
   }
 

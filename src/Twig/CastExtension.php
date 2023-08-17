@@ -13,11 +13,11 @@ class CastExtension extends AbstractExtension {
 
   public function getFilters() : array {
     return [
-      new TwigFilter('castInt', [$this, 'castInt']),
-      new TwigFilter('castFloat', [$this, 'castFloat']),
-      new TwigFilter('castBool', [$this, 'castBool']),
-      new TwigFilter('castArray', [$this, 'castArray']),
-      new TwigFilter('castString', [$this, 'castString']),
+      new TwigFilter('castInt', $this->castInt(...)),
+      new TwigFilter('castFloat', $this->castFloat(...)),
+      new TwigFilter('castBool', $this->castBool(...)),
+      new TwigFilter('castArray', $this->castArray(...)),
+      new TwigFilter('castString', $this->castString(...)),
     ];
   }
 

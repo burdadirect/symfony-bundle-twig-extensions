@@ -16,11 +16,11 @@
     "php": "^8.2.0",
     "ext-dom": "*",
     "ext-mbstring": "*",
-    "symfony/config": "^5.4",
-    "symfony/dependency-injection": "^5.4",
-    "symfony/dom-crawler": "^5.4",
-    "symfony/http-kernel": "^5.4",
-    "symfony/twig-bundle": "^5.4"
+    "symfony/config": "^6.3",
+    "symfony/dependency-injection": "^6.3",
+    "symfony/dom-crawler": "^6.3",
+    "symfony/http-kernel": "^6.3",
+    "symfony/twig-bundle": "^6.3"
 
   },
   "require-dev": {

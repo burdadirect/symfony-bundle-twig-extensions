@@ -15,11 +15,11 @@ class UrlExtension extends AbstractExtension {
 
   public function getFilters() : array {
     return [
-      'hbmParseUrl'       => new TwigFilter('hbmParseUrl',       [$this, 'hbmParseUrl']),
-      'hbmParseUrlHost'   => new TwigFilter('hbmParseUrlHost',   [$this, 'hbmParseUrlHost']),
-      'hbmParseUrlDomain' => new TwigFilter('hbmParseUrlDomain', [$this, 'hbmParseUrlHost']),
-      'hbmParseUrlPath'   => new TwigFilter('hbmParseUrlPath',   [$this, 'hbmParseUrlPath']),
-      'hbmParseUrlQuery'  => new TwigFilter('hbmParseUrlQuery',  [$this, 'hbmParseUrlQuery']),
+      'hbmParseUrl'       => new TwigFilter('hbmParseUrl',       $this->hbmParseUrl(...)),
+      'hbmParseUrlHost'   => new TwigFilter('hbmParseUrlHost',   $this->hbmParseUrlHost(...)),
+      'hbmParseUrlDomain' => new TwigFilter('hbmParseUrlDomain', $this->hbmParseUrlHost(...)),
+      'hbmParseUrlPath'   => new TwigFilter('hbmParseUrlPath',   $this->hbmParseUrlPath(...)),
+      'hbmParseUrlQuery'  => new TwigFilter('hbmParseUrlQuery',  $this->hbmParseUrlQuery(...)),
     ];
   }
 

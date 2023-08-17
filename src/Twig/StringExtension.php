@@ -30,15 +30,15 @@ TXT;
 
   public function getTests() : array {
     return [
-      'prefixed' => new TwigTest('prefixed', [$this, 'isPrefixed']),
-      'string' => new TwigTest('string', [$this, 'isString'])
+      'prefixed' => new TwigTest('prefixed', $this->isPrefixed(...)),
+      'string' => new TwigTest('string', $this->isString(...))
     ];
   }
 
   public function getFunctions() : array {
     return [
-      new TwigFunction('uuid', [$this, 'getUuid']),
-      new TwigFunction('loreipsum', [$this, 'getLoreipsum']),
+      new TwigFunction('uuid', $this->getUuid(...)),
+      new TwigFunction('loreipsum', $this->getLoreipsum(...)),
     ];
   }
 

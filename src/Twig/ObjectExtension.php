@@ -14,14 +14,14 @@ class ObjectExtension extends AbstractExtension {
 
   public function getTests() : array {
     return [
-      'instanceof' => new TwigTest('instanceof', [$this, 'isInstanceOf'])
+      'instanceof' => new TwigTest('instanceof', $this->isInstanceof(...))
     ];
   }
 
   public function getFunctions() : array {
     return [
-      'classShort' => new TwigFunction('classShort', [$this, 'getClassShort']),
-      'classFull' => new TwigFunction('classFull', [$this, 'getClassFull'])
+      'classShort' => new TwigFunction('classShort', $this->getClassShort(...)),
+      'classFull' => new TwigFunction('classFull', $this->getClassFull(...))
     ];
   }
 

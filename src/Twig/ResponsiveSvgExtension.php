@@ -40,8 +40,8 @@ class ResponsiveSvgExtension extends AbstractExtension {
    */
   public function getFilters() : array {
     return [
-      new TwigFilter('responsiveSVG', [$this, 'generateResponsiveSvg'], ['is_safe' => ['html']]),
-      new TwigFilter('responsiveSourceSVG', [$this, 'generateResponsiveSourceSvg'], ['is_safe' => ['html']]),
+      new TwigFilter('responsiveSVG', $this->generateResponsiveSvg(...), ['is_safe' => ['html']]),
+      new TwigFilter('responsiveSourceSVG', $this->generateResponsiveSourceSvg(...), ['is_safe' => ['html']]),
     ];
   }
 

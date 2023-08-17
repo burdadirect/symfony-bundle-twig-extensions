@@ -13,7 +13,7 @@ class ArrayExtension extends AbstractExtension {
 
   public function getFilters() : array {
     return [
-      new TwigFilter('hbmEnumeration', [$this, 'hbmEnumeration']),
+      new TwigFilter('hbmEnumeration', $this->hbmEnumeration(...)),
     ];
   }
 

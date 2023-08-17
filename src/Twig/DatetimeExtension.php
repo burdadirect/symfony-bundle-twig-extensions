@@ -13,7 +13,7 @@ class DatetimeExtension extends AbstractExtension {
 
   public function getFilters() : array {
     return [
-      new TwigFilter('dateOrDefault', [$this, 'getDateOrDefault']),
+      new TwigFilter('dateOrDefault', $this->getDateOrDefault(...)),
     ];
   }
 
