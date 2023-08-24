@@ -17,6 +17,7 @@
     "ext-dom": "*",
     "ext-mbstring": "*",
     "symfony/config": "^6.3",
+    "symfony/css-selector": "6.3.*",
     "symfony/dependency-injection": "^6.3",
     "symfony/dom-crawler": "^6.3",
     "symfony/http-kernel": "^6.3",
