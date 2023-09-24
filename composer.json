@@ -5,6 +5,12 @@
     "name" : "Christian Puchinger",
     "email" : "christian.puchinger@burda.com"
   }],
+  "repositories" : [
+    {
+      "type": "vcs",
+      "url": "git@github.com:burdadirect/codestyle.git"
+    }
+  ],
   "license": "MIT",
   "type": "symfony-bundle",
   "autoload": {
@@ -25,6 +31,12 @@
 
   },
   "require-dev": {
+    "burdadirect/codestyle": "dev-main",
     "roave/security-advisories": "dev-latest"
+  },
+  "config": {
+    "allow-plugins": {
+      "phpstan/extension-installer": true
+    }
   }
 }
