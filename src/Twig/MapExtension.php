@@ -14,7 +14,7 @@ class MapExtension extends AbstractExtension {
   public function getFilters(): array {
     return [
       new TwigFilter('mapAdd', $this->mapAdd(...)),
-      new TwigFilter('mapRemove', $this->mapAdd(...)),
+      new TwigFilter('mapRemove', $this->mapRemove(...)),
     ];
   }
 
