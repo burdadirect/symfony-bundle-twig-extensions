@@ -1,6 +1,6 @@
 <?php
 
-namespace HBM\TwigExtensionsBundle\Twig;
+namespace HBM\TwigExtensionsBundle\Twig\Extension;
 
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;

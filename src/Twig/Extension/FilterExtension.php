@@ -1,6 +1,6 @@
 <?php
 
-namespace HBM\TwigExtensionsBundle\Twig;
+namespace HBM\TwigExtensionsBundle\Twig\Extension;
 
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
