@@ -2,7 +2,7 @@
 
 namespace HBM\TwigExtensionsBundle\Twig\Runtime;
 
-use HBM\TwigExtensionsBundle\Interfaces\SettingContentProviderInterface;
+use HBM\TwigExtensionsBundle\SettingContentProvider\SettingContentProviderInterface;
 use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\SyntaxError;

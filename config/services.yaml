@@ -4,7 +4,11 @@ services:
     _defaults:
         public: true
 
+    HBM\TwigExtensionsBundle\SettingContentProvider\SettingContentProvider:
+
     # TWIG
+    HBM\TwigExtensionsBundle\SettingContentProvider\SettingContentProviderInterface: '@HBM\TwigExtensionsBundle\SettingContentProvider\SettingContentProvider'
+
     HBM\TwigExtensionsBundle\Twig\Runtime\:
         autowire: true
         resource: '../src/Twig/Runtime'
