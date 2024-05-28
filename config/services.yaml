@@ -5,6 +5,12 @@ services:
         public: true
 
     # TWIG
+    HBM\TwigExtensionsBundle\Twig\Runtime\:
+        autowire: true
+        resource: '../src/Twig/Runtime'
+        tags:
+            - { name: twig.runtime }
+
     HBM\TwigExtensionsBundle\Twig\Extension\:
         resource: '../src/Twig/Extension/*'
         exclude:
