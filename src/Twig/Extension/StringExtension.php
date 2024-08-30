@@ -2,13 +2,14 @@
 
 namespace HBM\TwigExtensionsBundle\Twig\Extension;
 
+use Random\RandomException;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 use Twig\TwigTest;
 
 class StringExtension extends AbstractExtension
 {
-    private $loreipsum = <<<TXT
+    private string $loreipsum = <<<TXT
         Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.   
 
         Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.   
@@ -44,20 +45,15 @@ class StringExtension extends AbstractExtension
 
     /* FUNCTIONS */
 
-    public function getUuid($prefix = null, $more_entropy = false)
+    public function getUuid(string $prefix = null, bool $more_entropy = false): string
     {
         return uniqid($prefix, $more_entropy);
     }
 
     /**
-     * @param null $numMax
-     * @param null $randomStart
-     *
-     * @throws \Exception
-     *
-     * @return bool|string
+     * @throws RandomException
      */
-    public function getLoreipsum($numMin, $numMax = null, $randomStart = null)
+    public function getLoreipsum(int $numMin, int $numMax = null, ?bool $randomStart = false): string
     {
         $length = $numMin;
 
@@ -65,7 +61,7 @@ class StringExtension extends AbstractExtension
             $length = random_int($numMin, $numMax);
         }
 
-        // Repeat text if it is to short.
+        // Repeat text if it is too short.
         $text = str_repeat($this->loreipsum, ceil($length / strlen($this->loreipsum)));
 
         $start = 0;
@@ -86,7 +82,7 @@ class StringExtension extends AbstractExtension
         }
 
         foreach ($prefixes as $prefix) {
-            if (strpos($var, $prefix) === 0) {
+            if (str_starts_with($var, $prefix)) {
                 return true;
             }
         }
