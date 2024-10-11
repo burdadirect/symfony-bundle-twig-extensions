@@ -24,6 +24,7 @@ class FilterExtension extends AbstractExtension
           new TwigFilter('cssClasses', $this->cssClasses(...)),
           new TwigFilter('decimals', $this->decimalsFilter(...)),
           new TwigFilter('bytes', $this->bytesFilter(...)),
+          new TwigFilter('bytesOrDefault', $this->bytesOrDefault(...)),
           new TwigFilter('link', $this->link(...), ['is_safe' => ['html']]),
           new TwigFilter('filterVar', $this->filterVar(...)),
           new TwigFilter('applyFilters', $this->appyFilters(...), ['needs_environment' => true, 'is_safe' => ['html']]),
@@ -124,14 +125,23 @@ class FilterExtension extends AbstractExtension
         return trim(preg_replace('!\s+!', ' ', $var));
     }
 
-    public static function bytesFilter($bytes, $sep = ' ', $decimals = 2, $decPoint = ',', $thousandsSep = '.'): string
+    public function bytesOrDefault(mixed $bytes, mixed $default = null, string $sep = ' ', int $decimals = 2, ?string $decimal_separator = ',', ?string $thousands_separator = '.')
+    {
+        if (is_numeric($bytes)) {
+            return self::bytesFilter($bytes, $sep, $decimals, $decimal_separator, $thousands_separator);
+        }
+
+        return $default;
+    }
+
+    public static function bytesFilter(mixed $bytes, string $sep = ' ', int $decimals = 2, ?string $decimal_separator = ',', ?string $thousands_separator = '.'): string
     {
         $size   = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
         $factor = floor((strlen($bytes) - 1) / 3);
 
         $bytesToUse = $bytes / (1024 ** $factor);
 
-        return number_format($bytesToUse, $decimals, $decPoint, $thousandsSep) . $sep . ($size[$factor] ?? '');
+        return number_format($bytesToUse, $decimals, $decimal_separator, $thousands_separator) . $sep . ($size[$factor] ?? '');
     }
 
     // Only returns the decimal places of a float.
