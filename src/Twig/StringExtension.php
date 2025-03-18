@@ -86,7 +86,7 @@ class StringExtension extends AbstractExtension
         }
 
         foreach ($prefixes as $prefix) {
-            if (strpos($var, $prefix) === 0) {
+            if (str_starts_with($var, $prefix)) {
                 return true;
             }
         }

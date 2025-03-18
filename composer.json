@@ -22,12 +22,12 @@
     "php": "^8.2.0",
     "ext-dom": "*",
     "ext-mbstring": "*",
-    "symfony/config": "^6.3",
-    "symfony/css-selector": "^6.3",
-    "symfony/dependency-injection": "^6.3",
-    "symfony/dom-crawler": "^6.3",
-    "symfony/http-kernel": "^6.3",
-    "symfony/twig-bundle": "^6.3"
+    "symfony/config": "^7.0",
+    "symfony/css-selector": "^7.0",
+    "symfony/dependency-injection": "^7.0",
+    "symfony/dom-crawler": "^7.0",
+    "symfony/http-kernel": "^7.0",
+    "symfony/twig-bundle": "^7.0"
 
   },
   "require-dev": {
