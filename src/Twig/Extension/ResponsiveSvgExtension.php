@@ -1,6 +1,6 @@
 <?php
 
-namespace HBM\TwigExtensionsBundle\Twig;
+namespace HBM\TwigExtensionsBundle\Twig\Extension;
 
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DomCrawler\Crawler;

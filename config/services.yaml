@@ -4,23 +4,33 @@ services:
     _defaults:
         public: true
 
+    HBM\TwigExtensionsBundle\SettingContentProvider\SettingContentProvider:
+
     # TWIG
-    HBM\TwigExtensionsBundle\Twig\:
-        resource: '../src/Twig/*'
+    HBM\TwigExtensionsBundle\SettingContentProvider\SettingContentProviderInterface: '@HBM\TwigExtensionsBundle\SettingContentProvider\SettingContentProvider'
+
+    HBM\TwigExtensionsBundle\Twig\Runtime\:
+        autowire: true
+        resource: '../src/Twig/Runtime'
+        tags:
+            - { name: twig.runtime }
+
+    HBM\TwigExtensionsBundle\Twig\Extension\:
+        resource: '../src/Twig/Extension/*'
         exclude:
-            - '../src/Twig/BaseUrlExtension.php'
-            - '../src/Twig/ResponsiveSvgExtension.php'
+            - '../src/Twig/Extension/BaseUrlExtension.php'
+            - '../src/Twig/Extension/ResponsiveSvgExtension.php'
         tags:
             - { name: twig.extension }
 
     hbm.twig_extensions.baseurl:
-        class: HBM\TwigExtensionsBundle\Twig\BaseUrlExtension
+        class: HBM\TwigExtensionsBundle\Twig\Extension\BaseUrlExtension
         arguments: ['%hbm.twig_extensions.base_url%']
         tags:
             - { name: twig.extension }
 
     hbm.twig_extension.responsive_svg:
-        class: HBM\TwigExtensionsBundle\Twig\ResponsiveSvgExtension
+        class: HBM\TwigExtensionsBundle\Twig\Extension\ResponsiveSvgExtension
         arguments: ['%hbm.twig_extensions.responsive_svg%', '@logger']
         tags:
             - { name: twig.extension }
