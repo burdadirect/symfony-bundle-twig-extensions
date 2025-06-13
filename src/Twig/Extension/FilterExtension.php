@@ -28,7 +28,7 @@ class FilterExtension extends AbstractExtension
           new TwigFilter('link', $this->link(...), ['is_safe' => ['html']]),
           new TwigFilter('filterVar', $this->filterVar(...)),
           new TwigFilter('applyFilters', $this->appyFilters(...), ['needs_environment' => true, 'is_safe' => ['html']]),
-          new TwigFilter('spaceless_hbm', $this->spacelessHbm(...), ['is_safe' => ['html']]),
+          new TwigFilter('spacelessCustom', $this->spacelessCustom(...), ['is_safe' => ['html']]),
         ];
     }
 
@@ -227,7 +227,7 @@ class FilterExtension extends AbstractExtension
         return $var;
     }
 
-    public function spacelessHbm($content): string
+    public function spacelessCustom($content): string
     {
         return trim(preg_replace('/>\s+</', '><', $content ?? ''));
     }
