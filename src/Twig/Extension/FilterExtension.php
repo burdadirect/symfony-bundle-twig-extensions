@@ -66,9 +66,9 @@ class FilterExtension extends AbstractExtension
         return $var;
     }
 
-    public function pushFilter($var, $push)
+    public function pushFilter($var, $push, bool $flag = true)
     {
-        if (is_array($var)) {
+        if (is_array($var) && $flag) {
             $var[] = $push;
         }
 
