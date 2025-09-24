@@ -22,6 +22,7 @@ class FilterExtension extends AbstractExtension
           new TwigFilter('shift', $this->shiftFilter(...)),
           new TwigFilter('appendToKey', $this->appendToKey(...)),
           new TwigFilter('cssClasses', $this->cssClasses(...)),
+          new TwigFilter('enumerate', $this->enumerate(...)),
           new TwigFilter('decimals', $this->decimalsFilter(...)),
           new TwigFilter('bytes', $this->bytesFilter(...)),
           new TwigFilter('bytesOrDefault', $this->bytesOrDefault(...)),
@@ -29,6 +30,7 @@ class FilterExtension extends AbstractExtension
           new TwigFilter('filterVar', $this->filterVar(...)),
           new TwigFilter('applyFilters', $this->appyFilters(...), ['needs_environment' => true, 'is_safe' => ['html']]),
           new TwigFilter('spacelessCustom', $this->spacelessCustom(...), ['is_safe' => ['html']]),
+
         ];
     }
 
@@ -230,5 +232,30 @@ class FilterExtension extends AbstractExtension
     public function spacelessCustom($content): string
     {
         return trim(preg_replace('/>\s+</', '><', $content ?? ''));
+    }
+
+    public static function enumerate($vars, string $glue = ', ', string $glueLast = ' & ', mixed $empty = null, string $format = null): mixed {
+        if ((is_countable($vars) ? count($vars) : 0) === 0) {
+            return $empty;
+        }
+
+        $varLabels = $vars;
+        if ($format) {
+            foreach ($varLabels as $varLabelIndex => $varLabelValue) {
+                $varLabels[$varLabelIndex] = sprintf($format, $varLabelValue);
+            }
+        }
+
+        $last = array_pop($varLabels);
+
+        $string = implode($glue, $varLabels);
+        if ($string && $last) {
+            $string .= $glueLast;
+        }
+        if ($last) {
+            $string .= $last;
+        }
+
+        return $string;
     }
 }
