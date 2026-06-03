@@ -40,7 +40,7 @@ class MailtoExtension extends AbstractExtension
 
     /* FUNCTIONS */
 
-    public function mailtoFunction(string $emailAddress, string $subject = null, string $body = null): string
+    public function mailtoFunction(string $emailAddress, ?string $subject = null, ?string $body = null): string
     {
         $string = 'mailto:' . $emailAddress;
         $parts  = [];

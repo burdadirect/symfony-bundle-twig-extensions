@@ -45,7 +45,7 @@ class StringExtension extends AbstractExtension
 
     /* FUNCTIONS */
 
-    public function getUuid(string $prefix = null, bool $more_entropy = false): string
+    public function getUuid(?string $prefix = null, bool $more_entropy = false): string
     {
         return uniqid($prefix, $more_entropy);
     }
@@ -53,7 +53,7 @@ class StringExtension extends AbstractExtension
     /**
      * @throws RandomException
      */
-    public function getLoreipsum(int $numMin, int $numMax = null, ?bool $randomStart = false): string
+    public function getLoreipsum(int $numMin, ?int $numMax = null, ?bool $randomStart = false): string
     {
         $length = $numMin;
 
