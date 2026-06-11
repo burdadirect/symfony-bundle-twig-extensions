@@ -11,7 +11,7 @@ class TryCatchNode extends Node
     public const NODE_TRY = 'hbm_try';
     public const NODE_CATCH = 'hbm_catch';
 
-    public function __construct(Node $try, Node $catch = null, int $lineno = 0, string $tag = null)
+    public function __construct(Node $try, ?Node $catch = null, int $lineno = 0, ?string $tag = null)
     {
         $nodes = [self::NODE_TRY => $try, self::NODE_CATCH => $catch];
         $nodes = array_filter($nodes);

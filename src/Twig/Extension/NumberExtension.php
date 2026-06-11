@@ -18,7 +18,7 @@ class NumberExtension extends AbstractExtension
 
     /* FILTERS */
 
-    public function numberFormatOrDefault(mixed $number, mixed $default = null, int $decimals = 0, ?string $decimal_separator = ',', ?string $thousands_separator = '.', int $decimalsOnInt = null)
+    public function numberFormatOrDefault(mixed $number, mixed $default = null, int $decimals = 0, ?string $decimal_separator = ',', ?string $thousands_separator = '.', ?int $decimalsOnInt = null)
     {
         if (is_numeric($number)) {
             if (is_int($number)) {

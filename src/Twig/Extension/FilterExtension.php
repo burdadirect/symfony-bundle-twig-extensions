@@ -234,7 +234,7 @@ class FilterExtension extends AbstractExtension
         return trim(preg_replace('/>\s+</', '><', $content ?? ''));
     }
 
-    public static function enumerate($vars, string $glue = ', ', string $glueLast = ' & ', mixed $empty = null, string $format = null): mixed {
+    public static function enumerate($vars, string $glue = ', ', string $glueLast = ' & ', mixed $empty = null, ?string $format = null): mixed {
         if ((is_countable($vars) ? count($vars) : 0) === 0) {
             return $empty;
         }
