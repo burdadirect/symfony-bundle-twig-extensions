@@ -38,8 +38,12 @@ class MapExtension extends AbstractExtension {
     return $map;
   }
 
-  public function mapRemove(array $map, string|int $key): array {
-    unset($map[$key]);
+  public function mapRemove(array $map, string|int|array $keys): array {
+    $keys = !is_array($keys) ? [$keys] : $keys;
+
+    foreach ($keys as $key) {
+      unset($map[$key]);
+    }
 
     return $map;
   }

@@ -137,8 +137,12 @@ class FilterExtension extends AbstractExtension
         return $default;
     }
 
-    public static function bytesFilter(mixed $bytes, string $sep = ' ', int $decimals = 2, ?string $decimal_separator = ',', ?string $thousands_separator = '.'): string
+    public static function bytesFilter(mixed $bytes, string $sep = ' ', int $decimals = 2, ?string $decimal_separator = ',', ?string $thousands_separator = '.'): ?string
     {
+        if ($bytes === null) {
+            return null;
+        }
+
         $size   = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
         $factor = floor((strlen($bytes) - 1) / 3);
 
