@@ -28,7 +28,7 @@
     "symfony/dom-crawler": "^7.0",
     "symfony/http-kernel": "^7.0",
     "symfony/twig-bundle": "^7.0",
-    "scssphp/scssphp": "^1.12"
+    "scssphp/scssphp": "^2.1"
 
   },
   "require-dev": {

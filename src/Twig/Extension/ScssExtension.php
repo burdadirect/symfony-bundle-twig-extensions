@@ -19,7 +19,7 @@ class ScssExtension extends AbstractExtension
 
     /* FILTER */
 
-    public function hbmScss(string $scss): string
+    public static function hbmScss(string $scss): string
     {
         $compiler = new Compiler();
         $compiler->setOutputStyle(OutputStyle::EXPANDED);
