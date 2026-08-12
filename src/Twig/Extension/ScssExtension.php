@@ -13,7 +13,7 @@ class ScssExtension extends AbstractExtension
     public function getFilters(): array
     {
         return [
-          new TwigFilter('hbmScss', $this->hbmScss(...)),
+          new TwigFilter('hbmScss', $this->hbmScss(...), ['is_safe' => ['html']]),
         ];
     }
 
