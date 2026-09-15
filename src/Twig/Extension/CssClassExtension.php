@@ -42,9 +42,9 @@ class CssClassExtension extends AbstractExtension
         $classesReplace = [];
         $classesRemove = [];
         foreach ($classesNew as $class) {
-            if (str_starts_with('-', $class)) {
+            if (str_starts_with($class, '-')) {
                 $classesRemove[] = substr($class, 1);
-            } elseif (str_starts_with('+', $class)) {
+            } elseif (str_starts_with($class, '+')) {
                 $classesExisting[] = substr($class, 1);
             } else {
                 $classesReplace[] = $class;
