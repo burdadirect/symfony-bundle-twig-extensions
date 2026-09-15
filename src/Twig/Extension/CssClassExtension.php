@@ -25,7 +25,7 @@ class CssClassExtension extends AbstractExtension
         ];
     }
 
-    public static function cssClass(string|array|null $classesExisting, string|array|null $classesNew): string
+    public static function cssClass(string|array|null $classesExisting, string|array|callable|null $classesNew): string
     {
         if ($classesExisting === null) {
             $classesExisting = [];
@@ -33,6 +33,11 @@ class CssClassExtension extends AbstractExtension
             $classesExisting = array_map('trim', explode(' ', $classesExisting));
         }
 
+        if (is_callable($classesNew)) {
+            $args = func_get_args();
+            $args = array_slice($args, 2);
+            $classesNew = $classesNew(...$args);
+        }
         if ($classesNew === null) {
             $classesNew = [];
         } elseif (is_string($classesNew)) {
