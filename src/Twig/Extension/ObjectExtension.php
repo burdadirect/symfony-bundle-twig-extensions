@@ -13,34 +13,16 @@ class ObjectExtension extends AbstractExtension
     public function getTests(): array
     {
         return [
-          'instanceof' => new TwigTest('instanceof', $this->isInstanceof(...)),
+            'instanceof' => new TwigTest('instanceof', $this->isInstanceof(...)),
         ];
     }
 
     public function getFunctions(): array
     {
         return [
-          'classShort' => new TwigFunction('classShort', $this->getClassShort(...)),
-          'classFull'  => new TwigFunction('classFull', $this->getClassFull(...)),
+            'classShort' => new TwigFunction('classShort', $this->getClassShort(...)),
+            'classFull'  => new TwigFunction('classFull', $this->getClassFull(...)),
         ];
-    }
-
-    /* FUNCTIONS */
-
-    /**
-     * @throws \ReflectionException
-     */
-    public function getClassShort($object): string
-    {
-        return (new \ReflectionClass($object))->getShortName();
-    }
-
-    /**
-     * @throws \ReflectionException
-     */
-    public function getClassFull($object): string
-    {
-        return (new \ReflectionClass($object))->getName();
     }
 
     /* TESTS */
@@ -49,4 +31,17 @@ class ObjectExtension extends AbstractExtension
     {
         return $var instanceof $instance;
     }
+
+    /* FUNCTIONS */
+
+    public function getClassShort($object): string
+    {
+        return new \ReflectionClass($object)->getShortName();
+    }
+
+    public function getClassFull($object): string
+    {
+        return new \ReflectionClass($object)->getName();
+    }
+
 }

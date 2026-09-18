@@ -2,30 +2,31 @@
 
 namespace HBM\TwigExtensionsBundle\Twig\Extension;
 
-use Random\RandomException;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
-use Twig\TwigTest;
 
 class CssClassExtension extends AbstractExtension
 {
+    /* DEFINITIONS */
 
     public function getFilters(): array
     {
         return [
-          new TwigFilter('cssClass', $this->cssClass(...)),
+            new TwigFilter('hbmCssClass', $this->hbmCssClass(...)),
         ];
     }
 
     public function getFunctions(): array
     {
         return [
-          new TwigFunction('cssClass', $this->cssClass(...)),
+            new TwigFunction('hbmCssClass', $this->hbmCssClass(...)),
         ];
     }
 
-    public static function cssClass(string|array|null $classesExisting, string|array|callable|null $classesNew): string
+    /* FILTERS & FUNCTIONS */
+
+    public static function hbmCssClass(string|array|null $classesExisting, string|array|callable|null $classesNew): string
     {
         if ($classesExisting === null) {
             $classesExisting = [];
@@ -34,18 +35,20 @@ class CssClassExtension extends AbstractExtension
         }
 
         if (is_callable($classesNew)) {
-            $args = func_get_args();
-            $args = array_slice($args, 2);
+            $args       = func_get_args();
+            $args       = array_slice($args, 2);
             $classesNew = $classesNew(...$args);
         }
+
         if ($classesNew === null) {
             $classesNew = [];
         } elseif (is_string($classesNew)) {
-            $classesNew = array_map('trim', explode(' ', $classesNew));
+            $classesNew = trim(preg_replace('/\s+/', ' ', $classesNew));
+            $classesNew = explode(' ', $classesNew);
         }
 
         $classesReplace = [];
-        $classesRemove = [];
+        $classesRemove  = [];
         foreach ($classesNew as $class) {
             if (str_starts_with($class, '-')) {
                 $classesRemove[] = substr($class, 1);

@@ -10,40 +10,41 @@ use Twig\TwigFunction;
  */
 class EnumExtension extends AbstractExtension
 {
-  /**
-   * @return TwigFunction[]
-   */
-  public function getFunctions(): array
-  {
-    return [
-      new TwigFunction('hbmEnum', [$this, 'createProxy']),
-    ];
-  }
+    /* DEFINITIONS */
 
-  public function createProxy(string $enumFQN): object
-  {
-    return new class($enumFQN) {
-      public function __construct(private readonly string $enum)
-      {
-        if (!enum_exists($this->enum)) {
-          throw new \InvalidArgumentException("$this->enum is not an Enum type and cannot be used in this function");
-        }
-      }
+    public function getFunctions(): array
+    {
+        return [
+            new TwigFunction('hbmEnum', $this->createProxy(...)),
+        ];
+    }
 
-      public function __call(string $name, array $arguments)
-      {
-        $enumFQN = sprintf('%s::%s', $this->enum, $name);
+    /* FUNCTIONS */
 
-        if (defined($enumFQN)) {
-          return constant($enumFQN);
-        }
+    public function createProxy(string $enumFQN): object
+    {
+        return new class($enumFQN) {
+            public function __construct(private readonly string $enum)
+            {
+                if (!enum_exists($this->enum)) {
+                    throw new \InvalidArgumentException("$this->enum is not an Enum type and cannot be used in this function");
+                }
+            }
 
-        if (method_exists($this->enum, $name)) {
-          return $this->enum::$name(...$arguments);
-        }
+            public function __call(string $name, array $arguments)
+            {
+                $enumFQN = sprintf('%s::%s', $this->enum, $name);
 
-        throw new \BadMethodCallException("Neither \"{$enumFQN}\" nor \"{$enumFQN}::{$name}()\" exist in this runtime.");
-      }
-    };
-  }
+                if (defined($enumFQN)) {
+                    return constant($enumFQN);
+                }
+
+                if (method_exists($this->enum, $name)) {
+                    return $this->enum::$name(...$arguments);
+                }
+
+                throw new \BadMethodCallException("Neither \"$enumFQN\" nor \"$enumFQN::$name()\" exist in this runtime.");
+            }
+        };
+    }
 }

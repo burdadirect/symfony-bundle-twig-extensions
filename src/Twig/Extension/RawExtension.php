@@ -14,16 +14,13 @@ class RawExtension extends AbstractExtension
     public function getFilters(): array
     {
         return [
-          'hbmRaw' => new TwigFilter('hbmRaw', $this->hbmRaw(...), ['needs_environment' => true]),
+            'hbmRaw' => new TwigFilter('hbmRaw', $this->hbmRaw(...), ['needs_environment' => true]),
         ];
     }
 
     /* FILTERS */
 
-    /**
-     * @return Markup
-     */
-    public function hbmRaw(Environment $environment, $var, $outputRaw = true)
+    public function hbmRaw(Environment $environment, mixed $var, $outputRaw = true): mixed
     {
         if ($outputRaw) {
             return new Markup($var, $environment->getCharset());

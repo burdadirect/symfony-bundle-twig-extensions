@@ -3,6 +3,8 @@
 namespace HBM\TwigExtensionsBundle\Twig\Extension;
 
 use Twig\Environment;
+use Twig\Error\LoaderError;
+use Twig\Error\SyntaxError;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 
@@ -13,35 +15,33 @@ class FilterExtension extends AbstractExtension
     public function getFilters(): array
     {
         return [
-          new TwigFilter('token', $this->tokenFilter(...)),
-          new TwigFilter('without', $this->withoutFilter(...)),
-          new TwigFilter('unique', $this->uniqueFilter(...)),
-          new TwigFilter('push', $this->pushFilter(...)),
-          new TwigFilter('pop', $this->popFilter(...)),
-          new TwigFilter('unshift', $this->unshiftFilter(...)),
-          new TwigFilter('shift', $this->shiftFilter(...)),
-          new TwigFilter('appendToKey', $this->appendToKey(...)),
-          new TwigFilter('cssClasses', $this->cssClasses(...)),
-          new TwigFilter('enumerate', $this->enumerate(...)),
-          new TwigFilter('decimals', $this->decimalsFilter(...)),
-          new TwigFilter('bytes', $this->bytesFilter(...)),
-          new TwigFilter('bytesOrDefault', $this->bytesOrDefault(...)),
-          new TwigFilter('link', $this->link(...), ['is_safe' => ['html']]),
-          new TwigFilter('filterVar', $this->filterVar(...)),
-          new TwigFilter('applyFilters', $this->appyFilters(...), ['needs_environment' => true, 'is_safe' => ['html']]),
-          new TwigFilter('spacelessCustom', $this->spacelessCustom(...), ['is_safe' => ['html']]),
-
+            new TwigFilter('token', $this->tokenFilter(...)),
+            new TwigFilter('without', $this->withoutFilter(...)),
+            new TwigFilter('unique', $this->uniqueFilter(...)),
+            new TwigFilter('push', $this->pushFilter(...)),
+            new TwigFilter('pop', $this->popFilter(...)),
+            new TwigFilter('unshift', $this->unshiftFilter(...)),
+            new TwigFilter('shift', $this->shiftFilter(...)),
+            new TwigFilter('appendToKey', $this->appendToKey(...)),
+            new TwigFilter('enumerate', $this->enumerate(...)),
+            new TwigFilter('decimals', $this->decimalsFilter(...)),
+            new TwigFilter('bytes', $this->bytesFilter(...)),
+            new TwigFilter('bytesOrDefault', $this->bytesOrDefault(...)),
+            new TwigFilter('link', $this->link(...), ['is_safe' => ['html']]),
+            new TwigFilter('filterVar', $this->filterVar(...)),
+            new TwigFilter('applyFilters', $this->appyFilters(...), ['needs_environment' => true, 'is_safe' => ['html']]),
+            new TwigFilter('spacelessCustom', $this->spacelessCustom(...), ['is_safe' => ['html']]),
         ];
     }
 
-    /* FILTER */
+    /* FILTERS */
 
     public function filterVar($var, $filter, $options = null)
     {
         return filter_var($var, $filter, $options);
     }
 
-    public function tokenFilter($string, $sep = ' ')
+    public function tokenFilter($string, $sep = ' '): array
     {
         $tokens = explode($sep, $string);
 
@@ -123,11 +123,6 @@ class FilterExtension extends AbstractExtension
         return $var;
     }
 
-    public function cssClasses($var)
-    {
-        return trim(preg_replace('!\s+!', ' ', $var));
-    }
-
     public function bytesOrDefault(mixed $bytes, mixed $default = null, string $sep = ' ', int $decimals = 2, ?string $decimal_separator = ',', ?string $thousands_separator = '.')
     {
         if (is_numeric($bytes)) {
@@ -152,24 +147,22 @@ class FilterExtension extends AbstractExtension
     }
 
     // Only returns the decimal places of a float.
-    public function decimalsFilter($float, $digits = 2)
+    public function decimalsFilter($float, $digits = 2): string
     {
         $whole      = floor($float);
         $fraction   = $float - $whole;
         $string     = substr($fraction, 2, $digits);
         $nullsToAdd = $digits - strlen($string);
-        for ($i = 0; $i < $nullsToAdd; ++$i) {
-            $string .= '0';
-        }
+        $string .= str_repeat('0', $nullsToAdd);
 
         return $string;
     }
 
-    public function link($string, $text = '%s', $title = 'Link: %s')
+    public function link($string, $text = '%s', $title = 'Link: %s'): array|string|null
     {
         $regex_url = "/(href=\"|>)?(\b(?:(?:https?|ftp|file|[A-Za-z]+):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#\/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[A-Z0-9+&@#\/%=~_|$]))(<\/a>)?/i";
 
-        return preg_replace_callback($regex_url, function ($matches) use ($text, $title) {
+        return preg_replace_callback($regex_url, static function ($matches) use ($text, $title) {
             if ((count($matches) === 4) && ($matches[1] === '>') && ($matches[3] === '</a>')) {
                 return $matches[0];
             }
@@ -183,11 +176,10 @@ class FilterExtension extends AbstractExtension
     }
 
     /**
-     * @param array|string $filters
-     *
-     * @return string
+     * @throws SyntaxError
+     * @throws LoaderError
      */
-    public function appyFilters(Environment $environment, $var, $filters = [])
+    public function appyFilters(Environment $environment, mixed $var, array|string $filters = []): mixed
     {
         if (is_string($filters)) {
             $filters = [$filters];
@@ -225,9 +217,9 @@ class FilterExtension extends AbstractExtension
                 $templateString .= '|' . $filterName . $filterParamsString;
             }
 
-            $template = $environment->createTemplate('{{ ' . $templateString . ' }}');
-
-            return $template->render(array_merge(...$templateParamsArrays));
+            return $environment
+              ->createTemplate('{{ ' . $templateString . ' }}')
+              ->render(array_merge(...$templateParamsArrays));
         }
 
         return $var;
@@ -238,12 +230,14 @@ class FilterExtension extends AbstractExtension
         return trim(preg_replace('/>\s+</', '><', $content ?? ''));
     }
 
-    public static function enumerate($vars, string $glue = ', ', string $glueLast = ' & ', mixed $empty = null, ?string $format = null): mixed {
+    public static function enumerate($vars, string $glue = ', ', string $glueLast = ' & ', mixed $empty = null, ?string $format = null): mixed
+    {
         if ((is_countable($vars) ? count($vars) : 0) === 0) {
             return $empty;
         }
 
         $varLabels = $vars;
+
         if ($format) {
             foreach ($varLabels as $varLabelIndex => $varLabelValue) {
                 $varLabels[$varLabelIndex] = sprintf($format, $varLabelValue);
@@ -253,9 +247,11 @@ class FilterExtension extends AbstractExtension
         $last = array_pop($varLabels);
 
         $string = implode($glue, $varLabels);
+
         if ($string && $last) {
             $string .= $glueLast;
         }
+
         if ($last) {
             $string .= $last;
         }

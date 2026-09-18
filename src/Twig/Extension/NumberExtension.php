@@ -12,7 +12,7 @@ class NumberExtension extends AbstractExtension
     public function getFilters(): array
     {
         return [
-          new TwigFilter('numberFormatOrDefault', $this->numberFormatOrDefault(...)),
+            new TwigFilter('numberFormatOrDefault', $this->numberFormatOrDefault(...)),
         ];
     }
 
@@ -24,10 +24,10 @@ class NumberExtension extends AbstractExtension
             if (is_int($number)) {
                 return number_format($number, $decimalsOnInt ?? $decimals, $decimal_separator, $thousands_separator);
             }
+
             return number_format($number, $decimals, $decimal_separator, $thousands_separator);
         }
 
         return $default;
     }
-
 }

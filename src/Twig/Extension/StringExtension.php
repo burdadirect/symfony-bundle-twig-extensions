@@ -30,17 +30,27 @@ class StringExtension extends AbstractExtension
     public function getTests(): array
     {
         return [
-          'prefixed' => new TwigTest('prefixed', $this->isPrefixed(...)),
-          'string'   => new TwigTest('string', $this->isString(...)),
+            new TwigTest('prefixed', $this->isPrefixed(...)),
         ];
     }
 
     public function getFunctions(): array
     {
         return [
-          new TwigFunction('uuid', $this->getUuid(...)),
-          new TwigFunction('loreipsum', $this->getLoreipsum(...)),
+            new TwigFunction('uuid', $this->getUuid(...)),
+            new TwigFunction('loreipsum', $this->getLoreipsum(...)),
         ];
+    }
+
+    /* TESTS */
+
+    public function isPrefixed($var, $prefixes): bool
+    {
+        if (!is_array($prefixes)) {
+            $prefixes = [$prefixes];
+        }
+
+        return array_any($prefixes, fn ($prefix) => str_starts_with($var, $prefix));
     }
 
     /* FUNCTIONS */
@@ -55,43 +65,13 @@ class StringExtension extends AbstractExtension
      */
     public function getLoreipsum(int $numMin, ?int $numMax = null, ?bool $randomStart = false): string
     {
-        $length = $numMin;
-
-        if ($numMax) {
-            $length = random_int($numMin, $numMax);
-        }
+        $length = $numMax ? random_int($numMin, $numMax) : $numMin;
 
         // Repeat text if it is too short.
         $text = str_repeat($this->loreipsum, ceil($length / strlen($this->loreipsum)));
 
-        $start = 0;
-
-        if ($randomStart) {
-            $start = random_int(0, strlen($text) - $length);
-        }
+        $start = $randomStart ? random_int(0, strlen($text) - $length) : 0;
 
         return substr($this->loreipsum, $start, $length);
-    }
-
-    /* TESTS */
-
-    public function isPrefixed($var, $prefixes): bool
-    {
-        if (!is_array($prefixes)) {
-            $prefixes = [$prefixes];
-        }
-
-        foreach ($prefixes as $prefix) {
-            if (str_starts_with($var, $prefix)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    public function isString($var): bool
-    {
-        return is_string($var);
     }
 }

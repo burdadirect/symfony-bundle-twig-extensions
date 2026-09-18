@@ -18,8 +18,13 @@
       "HBM\\TwigExtensionsBundle\\": "src/"
     }
   },
+  "autoload-dev": {
+    "psr-4": {
+      "HBM\\TwigExtensionsBundle\\Tests\\": "tests/"
+    }
+  },
   "require": {
-    "php": "^8.2.0",
+    "php": "^8.4.0",
     "ext-dom": "*",
     "ext-mbstring": "*",
     "symfony/config": "^7.0",
@@ -33,7 +38,8 @@
   },
   "require-dev": {
     "burdadirect/codestyle": "dev-main",
-    "roave/security-advisories": "dev-latest"
+    "roave/security-advisories": "dev-latest",
+    "phpunit/phpunit": "^13.3"
   },
   "config": {
     "allow-plugins": {

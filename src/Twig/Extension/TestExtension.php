@@ -7,17 +7,22 @@ use Twig\TwigTest;
 
 class TestExtension extends AbstractExtension
 {
+    /* DEFINITIONS */
+
     public function getTests(): array
     {
         return [
-          'array'   => new TwigTest('array',   $this->isArray(...)),
-          'bool'    => new TwigTest('bool',    $this->isBool(...)),
-          'float'   => new TwigTest('float',   $this->isFloat(...)),
-          'int'     => new TwigTest('int',     $this->isInteger(...)),
-          'integer' => new TwigTest('integer', $this->isInteger(...)),
-          'numeric' => new TwigTest('numeric', $this->isNumeric(...)),
+            'array'   => new TwigTest('array', $this->isArray(...)),
+            'bool'    => new TwigTest('bool', $this->isBool(...)),
+            'float'   => new TwigTest('float', $this->isFloat(...)),
+            'int'     => new TwigTest('int', $this->isInteger(...)),
+            'integer' => new TwigTest('integer', $this->isInteger(...)),
+            'numeric' => new TwigTest('numeric', $this->isNumeric(...)),
+            'string'  => new TwigTest('string', $this->isString(...)),
         ];
     }
+
+    /* TESTS */
 
     public function isArray($var): bool
     {
@@ -42,5 +47,10 @@ class TestExtension extends AbstractExtension
     public function isNumeric($var): bool
     {
         return is_numeric($var);
+    }
+
+    public function isString($var): bool
+    {
+        return is_string($var);
     }
 }

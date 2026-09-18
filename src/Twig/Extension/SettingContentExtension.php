@@ -8,11 +8,10 @@ use Twig\TwigFilter;
 
 class SettingContentExtension extends AbstractExtension
 {
-
-    public function getFilters(): array {
+    public function getFilters(): array
+    {
         return [
-          new TwigFilter('hbmContentFromSettings', [SettingContentRuntime::class, 'renderContentFromSettings']),
+            new TwigFilter('hbmContentFromSettings', [SettingContentRuntime::class, 'renderContentFromSettings']),
         ];
     }
-
 }

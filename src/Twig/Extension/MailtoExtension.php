@@ -13,32 +13,28 @@ class MailtoExtension extends AbstractExtension
     public function getFilters(): array
     {
         return [
-          new TwigFilter('mailto', $this->mailtoFilter(...)),
+            new TwigFilter('mailto', $this->mailtoFilter(...)),
         ];
     }
 
     public function getFunctions(): array
     {
         return [
-          new TwigFunction('mailto', $this->mailtoFunction(...)),
+            new TwigFunction('mailto', $this->mailtoFunction(...)),
         ];
     }
 
-    /* HELPER */
+    /* FILTERS & FUNCTIONS */
 
     private function mailtoEncode(string $var): string
     {
         return str_replace("\n", '%0D%0A', rawurlencode($var));
     }
 
-    /* FILTER */
-
     public function mailtoFilter(string $var): string
     {
         return $this->mailtoEncode($var);
     }
-
-    /* FUNCTIONS */
 
     public function mailtoFunction(string $emailAddress, ?string $subject = null, ?string $body = null): string
     {

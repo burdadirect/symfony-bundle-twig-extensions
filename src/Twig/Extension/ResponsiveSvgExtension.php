@@ -9,15 +9,11 @@ use Twig\TwigFilter;
 
 class ResponsiveSvgExtension extends AbstractExtension
 {
-    private $config;
+    private array $config;
 
-    /** @var LoggerInterface */
-    private $logger;
+    private LoggerInterface $logger;
 
-    /**
-     * ResponsiveSvgExtension constructor.
-     */
-    public function __construct($config, LoggerInterface $logger)
+    public function __construct(array $config, LoggerInterface $logger)
     {
         $this->config = $config;
         $this->logger = $logger;
@@ -25,14 +21,11 @@ class ResponsiveSvgExtension extends AbstractExtension
 
     /* DEFINITIONS */
 
-    /**
-     * @return array|TwigFilter[]
-     */
     public function getFilters(): array
     {
         return [
-          new TwigFilter('responsiveSVG', $this->generateResponsiveSvg(...), ['is_safe' => ['html']]),
-          new TwigFilter('responsiveSourceSVG', $this->generateResponsiveSourceSvg(...), ['is_safe' => ['html']]),
+            new TwigFilter('responsiveSVG', $this->generateResponsiveSvg(...), ['is_safe' => ['html']]),
+            new TwigFilter('responsiveSourceSVG', $this->generateResponsiveSourceSvg(...), ['is_safe' => ['html']]),
         ];
     }
 
@@ -69,20 +62,23 @@ class ResponsiveSvgExtension extends AbstractExtension
         $svgContent   = $this->loadContent($pathResolved);
 
         $searchReplace = [
-          '<?xml version="1.0" encoding="utf-8"?>'                                                             => '',
-          '<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">' => '',
-          '<svg '                                                                                              => '<svg style="display:none;" ',
+            '<?xml version="1.0" encoding="utf-8"?>'                                                             => '',
+            '<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">' => '',
+            '<svg '                                                                                              => '<svg style="display:none;" ',
         ];
 
         return str_replace(array_keys($searchReplace), array_values($searchReplace), $svgContent);
     }
 
+    /**
+     * @throws \DOMException
+     */
     public function generateResponsiveSvg($uri, array $config = []): string
     {
         $default = [
-          'offsetX' => 0,
-          'offsetY' => 0,
-          'class'   => '',
+            'offsetX' => 0,
+            'offsetY' => 0,
+            'class'   => '',
         ];
 
         $config = array_merge($default, $config);

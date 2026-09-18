@@ -7,11 +7,8 @@ use Twig\TwigFilter;
 
 class BaseUrlExtension extends AbstractExtension
 {
-    /** @var string */
-    protected $base_url_images;
-
-    /** @var string */
-    protected $base_url_videos;
+    protected string $base_url_images;
+    protected string $base_url_videos;
 
     public function __construct($base_url_config)
     {
@@ -24,8 +21,8 @@ class BaseUrlExtension extends AbstractExtension
     public function getFilters(): array
     {
         return [
-          new TwigFilter('baseurlImages', $this->baseurlImagesFilter(...)),
-          new TwigFilter('baseurlVideos', $this->baseurlVideosFilter(...)),
+            new TwigFilter('baseurlImages', $this->baseurlImagesFilter(...)),
+            new TwigFilter('baseurlVideos', $this->baseurlVideosFilter(...)),
         ];
     }
 

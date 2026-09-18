@@ -7,13 +7,17 @@ use Twig\TwigFilter;
 
 class FileInfoExtension extends AbstractExtension
 {
+    /* DEFINITIONS */
+
     public function getFilters(): array
     {
         return [
-          new TwigFilter('hbmBasename', $this->hbmBasename(...)),
-          new TwigFilter('hbmDirname', $this->hbmDirname(...)),
+            new TwigFilter('hbmBasename', $this->hbmBasename(...)),
+            new TwigFilter('hbmDirname', $this->hbmDirname(...)),
         ];
     }
+
+    /* FILTERS */
 
     public function hbmBasename(string $filename): string
     {

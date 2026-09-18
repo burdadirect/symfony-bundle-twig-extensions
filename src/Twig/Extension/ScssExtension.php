@@ -10,14 +10,16 @@ use Twig\TwigFilter;
 
 class ScssExtension extends AbstractExtension
 {
+    /* DEFINITIONS */
+
     public function getFilters(): array
     {
         return [
-          new TwigFilter('hbmScss', $this->hbmScss(...), ['is_safe' => ['html']]),
+            new TwigFilter('hbmScss', $this->hbmScss(...), ['is_safe' => ['html']]),
         ];
     }
 
-    /* FILTER */
+    /* FILTERS */
 
     public static function hbmScss(string $scss): string
     {

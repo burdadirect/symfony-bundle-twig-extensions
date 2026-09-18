@@ -46,7 +46,7 @@ class TryCatchTokenParser extends AbstractTokenParser
 
     public function decideEnd(Token $token): bool
     {
-        return $token->test(['end_'.TryCatchNode::NODE_TRY]) || $token->test(['end_'.TryCatchNode::NODE_CATCH]);
+        return $token->test(['end_' . TryCatchNode::NODE_TRY]) || $token->test(['end_' . TryCatchNode::NODE_CATCH]);
     }
 
     public function getTag(): string
