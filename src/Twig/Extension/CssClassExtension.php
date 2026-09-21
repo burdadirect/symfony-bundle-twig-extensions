@@ -40,7 +40,7 @@ class CssClassExtension extends AbstractExtension
             $classesNew = $classesNew(...$args);
         }
 
-        if ($classesNew === null) {
+        if (($classesNew === null) || ($classesNew === '')) {
             $classesNew = [];
         } elseif (is_string($classesNew)) {
             $classesNew = trim(preg_replace('/\s+/', ' ', $classesNew));
