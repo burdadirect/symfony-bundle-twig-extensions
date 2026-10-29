@@ -31,6 +31,7 @@ class FilterExtension extends AbstractExtension
             new TwigFilter('filterVar', $this->filterVar(...)),
             new TwigFilter('applyFilters', $this->appyFilters(...), ['needs_environment' => true, 'is_safe' => ['html']]),
             new TwigFilter('spacelessCustom', $this->spacelessCustom(...), ['is_safe' => ['html']]),
+            new TwigFilter('hbmDuration', $this->duration(...)),
         ];
     }
 
@@ -144,6 +145,35 @@ class FilterExtension extends AbstractExtension
         $bytesToUse = $bytes / (1024 ** $factor);
 
         return number_format($bytesToUse, $decimals, $decimal_separator, $thousands_separator) . $sep . ($size[$factor] ?? '');
+    }
+
+    public static function duration(mixed $value, string $formatHours = '%dh', string $formatMinutes = '%dm', string $formatSeconds = '%ds', int $precision = 0, ?string $glue = ' '): array|string
+    {
+        $value = round($value, $precision);
+
+        $parts = [];
+
+        $hours = floor($value / 3600);
+
+        if ($hours > 0) {
+            $parts['h'] = sprintf($formatHours, $hours);
+        }
+        $minutes = floor(($value - ($hours * 3600)) / 60);
+
+        if ($minutes > 0) {
+            $parts['m'] = sprintf($formatMinutes, $minutes);
+        }
+        $seconds = $value - ($hours * 3600) - ($minutes * 60);
+
+        if (($value === 0) || ($seconds > 0)) {
+            $parts['s'] = sprintf($formatSeconds, $seconds);
+        }
+
+        if ($glue) {
+            return implode($glue, $parts);
+        }
+
+        return $parts;
     }
 
     // Only returns the decimal places of a float.
